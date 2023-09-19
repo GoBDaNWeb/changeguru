@@ -1,0 +1,49 @@
+.about
+    margin-top: 120px
+    margin-bottom: 120px
+    display: grid
+    grid-template-columns: repeat(2,1fr)
+    .content
+        max-width: 545px
+        .description
+            color: var(--gray-text-color)
+            margin-top: 20px
+            font-size: 18px
+            font-style: normal
+            font-weight: 400
+            line-height: 140%
+            letter-spacing: -0.72px
+        .reasons
+            margin-top: 54px
+            display: flex
+            flex-direction: column
+            gap: 50px
+            .reason
+                display: grid
+                grid-template-areas: "icon title" "icon description"
+                .iconWrapper
+                    margin-right: 30px
+                    grid-area: icon
+                .reasonTitle
+                    grid-area: title
+                    margin-bottom: 24px
+                    font-size: 30px
+                    font-style: normal
+                    font-weight: 500
+                    line-height: 120%
+                    letter-spacing: -1.2px
+                .reasonDescription
+                    grid-area: description
+                    font-size: 16px
+                    font-style: normal
+                    font-weight: 400
+                    line-height: 140%
+                    letter-spacing: -0.64px
+        .exploreBtn
+            font-size: 20px
+            margin-top: 50px
+            height: 58px
+            padding-top: 0
+            padding-bottom: 0
+    img
+        pointer-events: none
