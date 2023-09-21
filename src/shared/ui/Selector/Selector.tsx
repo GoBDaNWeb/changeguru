@@ -9,16 +9,25 @@ type Option = {
 interface ISelectProps {
   options: Option[];
   placeholder: string;
+  className?: string;
+  name: string;
 }
 
-export const Selector: FC<ISelectProps> = ({ options, placeholder }) => {
+export const Selector: FC<ISelectProps> = ({
+  options,
+  placeholder,
+  className,
+  name,
+}) => {
+  const selectClass = `select ${className ? className : ""}`;
+
   return (
     <Select
       isClearable
       placeholder={placeholder}
-      name="colors"
+      name={name}
       options={options}
-      className="select"
+      className={selectClass}
       classNamePrefix="select"
     />
   );

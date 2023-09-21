@@ -1,12 +1,17 @@
 html
     scrollbar-width: thin
     scrollbar-color: #daebf5 #ffffff
+    height: 100%
     &::-webkit-scrollbar
         width: 10px
     
 body
     background: var(--white-color)
     color: var(--dark-color)
+    height: 100%
+#root
+    height: 100%
+
 .container
     padding-left: 50px
     padding-right: 50px
@@ -17,3 +22,9 @@ body
 
 .noScroll
     overflow: hidden
+
+.gradTitle
+    background: var(--main-grad)
+    background-clip: text
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent

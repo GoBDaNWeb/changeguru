@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useLoginModalStore } from "@/features/LoginModal";
 import { observer } from "mobx-react-lite";
 import { BurgerIcon } from "@/shared/ui/BurgerIcon";
+import { toTop } from "@/shared/lib/helpers";
 
 export const Header = observer(() => {
   const [active, setActive] = useState(false);
@@ -28,10 +29,7 @@ export const Header = observer(() => {
 
   const handleClickLogo = () => {
     if (pathname === "/") {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
+      toTop();
     } else {
       navigate(PATH_PAGE.root);
     }
@@ -56,7 +54,9 @@ export const Header = observer(() => {
       </div>
       <nav className={s.navigation}>
         {navigationList.map((nav) => (
-          <NavLink to={nav.link}>{nav.title}</NavLink>
+          <NavLink key={nav.link} to={nav.link}>
+            {nav.title}
+          </NavLink>
         ))}
       </nav>
       <div className={s.auth}>

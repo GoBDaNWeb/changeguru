@@ -12,3 +12,5 @@ export * from "./Accordion";
 export * from "./GradientBg";
 export * from "./Backdrop";
 export * from "./ModalWrapper";
+export * from "./Tab";
+export * from "./Checkbox";

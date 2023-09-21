@@ -7,6 +7,7 @@ interface IButtonProps {
   variant?: "primary" | "additional" | "clear";
   onClick: () => void;
   className?: string;
+  type?: "submit" | "button";
 }
 
 export const Button: FC<IButtonProps> = ({
@@ -14,11 +15,12 @@ export const Button: FC<IButtonProps> = ({
   variant = "primary",
   onClick,
   className,
+  type = "button",
 }) => {
   const btnClass = `${s.button} ${s[variant]} ${className ? className : ""}`;
 
   return (
-    <button onClick={onClick} className={btnClass}>
+    <button onClick={onClick} className={btnClass} type={type}>
       {children}
     </button>
   );
