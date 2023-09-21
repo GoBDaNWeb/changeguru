@@ -12,7 +12,7 @@ export const Hero = () => {
           </Title>
           <p>Discover the Best Exchange for Your Needs</p>
         </div>
-        <img src="hero.png" alt="hero" />
+        <img src="hero.png" alt="hero" className={s.heroImg} />
       </div>
 
       <Converter />

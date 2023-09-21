@@ -1,53 +1,53 @@
+@import '@/shared/styles/vars'
+    
 .exchangeTable
     margin-top: 120px
+    @media(max-width: $tab-sm)
+        margin-top: 50px
     .filtersWrapper
         margin-top: 30px
         width: 100%
         display: flex
         justify-content: space-between
-    table
-        margin-top: 53px
-        width: 100%
-        thead
-            tr
-                display: grid
-                grid-template-columns: 14% 12% 12% 12% 12% 11% 8% 8% 5%
-                gap: 1%
-                border-bottom: 1px solid var(--gray-light-color)
-                padding-bottom: 34px
-                th
-                    width: 100%
-                    display: flex
-                    gap: 5px
-                    color: var(--gray-text-color)
-                    font-size: 16px
-                    font-style: normal
-                    font-weight: 500
-                    line-height: 100%
-                    letter-spacing: -0.64px
-                    &:first-child
-                        gap: 30px
-                    svg
-                        fill: var(--gray-text-color)
-                        path
-                            fill: var(--gray-text-color)
-                            color:  var(--gray-text-color)
-        tbody
-            tr
-                // justify-content: space-between
-                // display: flex
-                display: grid
-                gap: 1%
-                grid-template-columns: 14% 12% 12% 12% 12% 11% 8% 8% 5%
-                padding: 20px 0
-                border-bottom: 1px solid var(--gray-light-color)
-                td
-                    width: 100%
-                    display: flex
-                    align-items: center
-                    gap: 10px
-                    font-size: 20px
-                    font-style: normal
-                    font-weight: 500
-                    line-height: 100%
-                    letter-spacing: -0.8px
+    .tableWrapper
+        @media(max-width: $tab)
+            overflow: auto
+        table
+            margin-top: 53px
+            width: 100%
+            min-width: $tab
+            thead
+                tr
+                    display: grid
+                    grid-template-columns: 14% 12% 12% 12% 12% 11% 8% 8% 5%
+                    gap: 1%
+                    border-bottom: 1px solid var(--gray-light-color)
+                    padding-bottom: 34px
+                    th
+                        width: 100%
+                        display: flex
+                        gap: 5px
+                        font-size: 16px
+                        font-style: normal
+                        font-weight: 500
+                        line-height: 100%
+                        letter-spacing: -0.64px
+                        &:first-child
+                            gap: 30px
+            tbody
+                tr
+                    display: grid
+                    gap: 1%
+                    grid-template-columns: 14% 12% 12% 12% 12% 11% 8% 8% 5%
+                    padding: 20px 0
+                    border-bottom: 1px solid var(--gray-light-color)
+                    td
+                        width: 100%
+                        display: flex
+                        align-items: center
+                        gap: 10px
+                        font-size: 20px
+                        font-style: normal
+                        font-weight: 500
+                        line-height: 100%
+                        letter-spacing: -0.8px

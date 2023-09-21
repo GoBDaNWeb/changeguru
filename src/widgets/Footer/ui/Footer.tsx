@@ -7,7 +7,7 @@ export const Footer = () => {
       <FooterIcon />
       <div className={s.text}>
         <Title variant="h2">Earn up to $25 worth of crypto</Title>
-        <p>
+        <p className={s.description}>
           Discover how specific cryptocurrencies work — and get a bit of each
           crypto to try out for yourself.
         </p>

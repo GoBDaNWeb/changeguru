@@ -6,7 +6,7 @@ export const navigationList = [
     link: PATH_PAGE.root,
   },
   {
-    title: "about us",
+    title: "About us",
     link: PATH_PAGE.about,
   },
   {

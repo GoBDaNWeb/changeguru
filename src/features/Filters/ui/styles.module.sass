@@ -1,9 +1,16 @@
+@import '@/shared/styles/vars'
+
 .filters
     display: flex
     justify-content: space-between
     width: 100%
+    @media(max-width: $tab-sm)
+        flex-direction: column
+        gap: 20px
     .search
         width: 522px
+        @media(max-width: $tab-sm)
+            width: 100%
     button
         background: none
         border: none

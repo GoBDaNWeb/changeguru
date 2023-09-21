@@ -4,7 +4,7 @@ import s from "./styles.module.sass";
 
 interface IButtonProps {
   children: ReactNode;
-  variant?: "primary" | "additional";
+  variant?: "primary" | "additional" | "clear";
   onClick: () => void;
   className?: string;
 }

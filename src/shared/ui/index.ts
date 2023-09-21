@@ -7,3 +7,8 @@ export * from "./FiltersIcon";
 export * from "./SortingIcon";
 export * from "./OutlineHeartIcon";
 export * from "./CheckIcon";
+export * from "./Breadcrumbs";
+export * from "./Accordion";
+export * from "./GradientBg";
+export * from "./Backdrop";
+export * from "./ModalWrapper";

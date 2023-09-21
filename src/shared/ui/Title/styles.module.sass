@@ -1,3 +1,5 @@
+@import '@/shared/styles/vars'
+    
 .title
     text-transform: uppercase 
     font-family: 'Space Grotesk', sans-serif
@@ -8,7 +10,17 @@
     font-size: 70px
     font-weight: 700
     letter-spacing: -2.8px
+    @media(max-width: $tab-sm)
+        font-size: 50px
 .title.h2
     font-size: 50px
     font-weight: 700
     letter-spacing: -2px
+    @media(max-width: $tab-sm)
+        font-size: 35px
+.title.h3
+    font-size: 40px
+    font-weight: 700
+    letter-spacing: -0.8px
+    @media(max-width: $tab-sm)
+        font-size: 25px

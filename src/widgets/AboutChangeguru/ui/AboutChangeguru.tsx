@@ -5,13 +5,16 @@ export const AboutChangeguru = () => {
   return (
     <div className={`${s.about} container`}>
       <div className={s.content}>
-        <Title variant="h2">What Is Change Guru</Title>
-        <p className={s.description}>
-          ChangeGuru — Unleash the potential of top exchanges. Unlock a world of
-          opportunities with our platform, providing you with direct access to
-          renowed crypto exchanges, enabling you to seize the best trading
-          opportunities and harness the potential of market
-        </p>
+        <div className={s.text}>
+          <Title variant="h2">What Is Change Guru</Title>
+          <p className={s.description}>
+            ChangeGuru — Unleash the potential of top exchanges. Unlock a world
+            of opportunities with our platform, providing you with direct access
+            to renowed crypto exchanges, enabling you to seize the best trading
+            opportunities and harness the potential of market
+          </p>
+        </div>
+
         <div className={s.reasons}>
           <div className={s.reason}>
             <div className={s.iconWrapper}>
@@ -42,8 +45,8 @@ export const AboutChangeguru = () => {
         <Button onClick={() => {}} className={s.exploreBtn}>
           Explore More
         </Button>
+        <img src="laptop.png" alt="laptop" />
       </div>
-      <img src="laptop.png" alt="laptop" />
     </div>
   );
 };

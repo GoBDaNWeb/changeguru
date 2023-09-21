@@ -1,8 +1,12 @@
+@import '@/shared/styles/vars'
+    
 .header.active
     background: var(--white-color)
     margin: 10px
     border-radius: var(--rounded-md)
     box-shadow: var(--shadow)
+    @media(max-width: $mob)
+        margin: 5px
 .header
     transition: all var(--trs-300)
     position: fixed
@@ -12,22 +16,51 @@
     right: 0
     left: 0
     z-index: var(--z-header)
+    @media(max-width: $tab-sm)
+        height: 70px
+        justify-content: space-between
     .logoWrapper
         cursor: pointer
+        .logo
+            @media(max-width: $mob)
+                display: none
+        .logoMin
+            display: none
+            @media(max-width: $mob)
+                display: block
     .navigation
         display: flex
         align-items: center
         gap: 50px
         flex: 1 
         margin-left: 100px
-        // font-family: 'Space Grotesk', sans-serif
+        @media(max-width: $tab-sm)
+            display: none
     .auth
         display: flex
         align-items: center
         gap: 30px
+        @media(max-width: $mob)
+            gap: 20px
+        .loginBtn
+            color: var(--dark-color)
+            font-size: 20px
+            font-style: normal
+            font-weight: 500
+            line-height: 100%
+            letter-spacing: -0.8px
+            @media(max-width: $tab-sm)
+                font-size: 18px
         .registerBtn
             font-size: 20px
             font-weight: 500
             height: 58px
             padding-top: 0
             padding-bottom: 0
+            @media(max-width: $tab-sm)
+                font-size: 16px
+                height: 40px
+        .burger
+            display: none
+            @media(max-width: $tab-sm)
+                display: block

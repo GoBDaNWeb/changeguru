@@ -1,15 +1,20 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import s from "./styles.module.sass";
-import { navigationList } from "../data/navigationList";
+import { navigationList } from "../config";
 import { Button } from "@/shared/ui";
 import { PATH_PAGE } from "@/shared/lib/react-router";
 import { useEffect, useState } from "react";
+import { useLoginModalStore } from "@/features/LoginModal";
+import { observer } from "mobx-react-lite";
+import { BurgerIcon } from "@/shared/ui/BurgerIcon";
 
-export const Header = () => {
+export const Header = observer(() => {
   const [active, setActive] = useState(false);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  const { handleOpenModal } = useLoginModalStore();
 
   const controlNavbar = () => {
     if (typeof window !== "undefined") {
@@ -46,7 +51,8 @@ export const Header = () => {
   return (
     <header className={headerClass}>
       <div onClick={handleClickLogo} className={s.logoWrapper}>
-        <img src="logo.png" alt="logo" />
+        <img src="logo.png" alt="logo" className={s.logo} />
+        <img src="logo-min.png" alt="logo" className={s.logoMin} />
       </div>
       <nav className={s.navigation}>
         {navigationList.map((nav) => (
@@ -54,14 +60,23 @@ export const Header = () => {
         ))}
       </nav>
       <div className={s.auth}>
-        <div>Log In</div>
+        <Button
+          onClick={handleOpenModal}
+          variant="clear"
+          className={s.loginBtn}
+        >
+          Log In
+        </Button>
         <Button
           onClick={() => navigate(PATH_PAGE.register)}
           className={s.registerBtn}
         >
           Register
         </Button>
+        <Button onClick={() => {}} className={s.burger} variant="clear">
+          <BurgerIcon />
+        </Button>
       </div>
     </header>
   );
-};
+});

@@ -7,7 +7,7 @@ export const ConverterFields = () => {
     <div className={s.fields}>
       <Selector options={converterData} placeholder="I Have" />
       <Selector options={converterData} placeholder="I Want" />
-      <Input placeholder="Quality" />
+      <Input placeholder="Quality" className={s.quality} />
       <Button onClick={() => {}} className={s.updateBtn}>
         Update
       </Button>
