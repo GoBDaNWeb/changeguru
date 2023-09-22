@@ -1,10 +1,10 @@
 import { useRoutes } from "react-router-dom";
-import { MainPage } from "@/pages/main";
-import { FaqPage } from "@/pages/faq";
-import { MainLayout } from "@/layouts/MainLayout";
-import { AboutUsPage } from "@/pages/about-us";
-import { PATH_PAGE } from "@/shared/lib/react-router";
-import { RegisterPage } from "@/pages/register";
+import { MainPage } from "pages/main";
+import { FaqPage } from "pages/faq";
+import { MainLayout } from "layouts/MainLayout";
+import { AboutUsPage } from "pages/about-us";
+import { PATH_PAGE } from "shared/lib/react-router";
+import { RegisterPage } from "pages/register";
 
 const Router = () => {
   return useRoutes([

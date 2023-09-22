@@ -1,4 +1,4 @@
-import { UploadIcon } from "@/shared/ui/UploadIcon";
+import { UploadIcon } from "shared/ui/UploadIcon";
 import s from "./styles.module.sass";
 
 export const UploadPhoto = () => {

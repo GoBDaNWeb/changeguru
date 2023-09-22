@@ -1,9 +1,9 @@
-import { useLoginModalStore } from "@/features/LoginModal";
-import { Backdrop, Button, Input, ModalWrapper } from "@/shared/ui";
+import { useLoginModalStore } from "features/LoginModal";
+import { Backdrop, Button, Input, ModalWrapper } from "shared/ui";
 import { observer } from "mobx-react-lite";
 import { FC, useEffect, useState } from "react";
 import s from "./styles.module.sass";
-import { useRecoveryPasswordModalStore } from "@/features/RecoveryPasswordModal";
+import { useRecoveryPasswordModalStore } from "features/RecoveryPasswordModal";
 interface IFooterProps {
   onClick: () => void;
 }

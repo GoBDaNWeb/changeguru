@@ -1,4 +1,4 @@
-import { Accordion, Breadcrumbs, GradientBg, Title } from "@/shared/ui";
+import { Accordion, Breadcrumbs, GradientBg, Title } from "shared/ui";
 import s from "./styles.module.sass";
 import { accordionList, breadcrumbsList } from "../config";
 import { useState } from "react";

@@ -1,4 +1,4 @@
-import { Button, Input, Selector } from "@/shared/ui";
+import { Button, Input, Selector } from "shared/ui";
 import { converterData } from "../../config";
 import s from "./styles.module.sass";
 

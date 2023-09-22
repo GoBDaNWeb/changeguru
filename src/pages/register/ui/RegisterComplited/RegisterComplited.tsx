@@ -1,4 +1,4 @@
-import { Button, GradientBg, Title } from "@/shared/ui";
+import { Button, GradientBg, Title } from "shared/ui";
 import s from "./styles.module.sass";
 
 export const RegisterComplited = () => {

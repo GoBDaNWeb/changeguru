@@ -1,4 +1,4 @@
-import { Button, Input, Selector } from "@/shared/ui";
+import { Button, Input, Selector } from "shared/ui";
 import s from "./styles.module.sass";
 import { countryList, genderList } from "../../config";
 import { FC } from "react";

@@ -1,4 +1,4 @@
-import { Breadcrumbs, GradientBg, Title } from "@/shared/ui";
+import { Breadcrumbs, GradientBg, Title } from "shared/ui";
 import s from "./styles.module.sass";
 import { breadcrumbsList, sectionList } from "../../config";
 import { Section } from "../Section/Section";

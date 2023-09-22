@@ -1,7 +1,7 @@
-import { Button, Input, Selector } from "@/shared/ui";
+import { Button, Input, Selector } from "shared/ui";
 import s from "./styles.module.sass";
 import { countryList } from "../../config";
-import { UploadPhoto } from "@/features/UploadPhoto";
+import { UploadPhoto } from "features/UploadPhoto";
 import { FC } from "react";
 
 interface IExchangeRegisterProps {

@@ -1,4 +1,4 @@
-import "@/shared/styles/index.sass";
+import "shared/styles/index.sass";
 import Provider from "./providers";
 
 const App = () => {

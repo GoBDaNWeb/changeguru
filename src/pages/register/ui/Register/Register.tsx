@@ -5,7 +5,7 @@ import { breadcrumbsList } from "../../config";
 
 import s from "./styles.module.sass";
 
-import { Breadcrumbs, Title, Tab } from "@/shared/ui";
+import { Breadcrumbs, Title, Tab } from "shared/ui";
 import { UserRegister } from "../UserRegister";
 import { ExchangeRegister } from "../ExchangeRegister";
 import { AdvancedRegistration } from "../AdvancedRegistration";

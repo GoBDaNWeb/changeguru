@@ -1,7 +1,7 @@
-import { FiltersIcon, OutlineHeartIcon, Title } from "@/shared/ui";
+import { FiltersIcon, OutlineHeartIcon, Title } from "shared/ui";
 import s from "./styles.module.sass";
 import { exchangeList } from "../../config";
-import { Filters } from "@/features/Filters";
+import { Filters } from "features/Filters";
 export const ExchangeTable = () => {
   return (
     <div className={`${s.exchangeTable} container`}>

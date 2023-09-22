@@ -1,13 +1,13 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import s from "./styles.module.sass";
 import { navigationList } from "../config";
-import { Button } from "@/shared/ui";
-import { PATH_PAGE } from "@/shared/lib/react-router";
+import { Button } from "shared/ui";
+import { PATH_PAGE } from "shared/lib/react-router";
 import { useEffect, useState } from "react";
-import { useLoginModalStore } from "@/features/LoginModal";
+import { useLoginModalStore } from "features/LoginModal";
 import { observer } from "mobx-react-lite";
-import { BurgerIcon } from "@/shared/ui/BurgerIcon";
-import { toTop } from "@/shared/lib/helpers";
+import { BurgerIcon } from "shared/ui/BurgerIcon";
+import { toTop } from "shared/lib/helpers";
 
 export const Header = observer(() => {
   const [active, setActive] = useState(false);

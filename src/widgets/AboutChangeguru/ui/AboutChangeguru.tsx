@@ -1,4 +1,4 @@
-import { Button, CheckIcon, Title } from "@/shared/ui";
+import { Button, CheckIcon, Title } from "shared/ui";
 import s from "./styles.module.sass";
 
 export const AboutChangeguru = () => {

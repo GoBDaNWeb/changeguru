@@ -1,4 +1,4 @@
-import { FiltersIcon, Input } from "@/shared/ui";
+import { FiltersIcon, Input } from "shared/ui";
 import s from "./styles.module.sass";
 export const Filters = () => {
   return (

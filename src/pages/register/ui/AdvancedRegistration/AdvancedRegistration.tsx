@@ -1,6 +1,6 @@
-import { Button, Checkbox, Selector } from "@/shared/ui";
+import { Button, Checkbox, Selector } from "shared/ui";
 import s from "./styles.module.sass";
-import { CheckboxGroup } from "@/shared/ui/CheckboxGroup";
+import { CheckboxGroup } from "shared/ui/CheckboxGroup";
 import { countryList } from "../../config";
 import { FC } from "react";
 

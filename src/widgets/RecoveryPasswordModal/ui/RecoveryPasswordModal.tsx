@@ -1,8 +1,8 @@
-import { Backdrop, Button, Input, ModalWrapper } from "@/shared/ui";
+import { Backdrop, Button, Input, ModalWrapper } from "shared/ui";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import s from "./styles.module.sass";
-import { useRecoveryPasswordModalStore } from "@/features/RecoveryPasswordModal";
+import { useRecoveryPasswordModalStore } from "features/RecoveryPasswordModal";
 
 export const RecoveryPasswordModal = observer(() => {
   const [showModal, setShowModal] = useState(false);
