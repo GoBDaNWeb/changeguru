@@ -2,6 +2,7 @@ import { Button, Input, Selector, TextArea } from "shared/ui";
 import s from "./styles.module.sass";
 import { countryList, genderList } from "shared/config";
 import { UploadPhoto } from "features/UploadPhoto";
+import { AddManager } from "features/AddManager";
 
 export const BasicInfo = () => {
   return (
@@ -23,6 +24,9 @@ export const BasicInfo = () => {
           <Input placeholder="Launch Date" />
         </div>
         <UploadPhoto label="Upload Logo" />
+        <div className={s.managerWrapper}>
+          <AddManager className={s.manager} />
+        </div>
         <Button onClick={() => {}} className={s.btn}>
           Save changes
         </Button>

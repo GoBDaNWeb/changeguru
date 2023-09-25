@@ -21,3 +21,4 @@ export * from "./DeleteIcon";
 export * from "./ContactIcon";
 export * from "./AdvancedIcon";
 export * from "./TextArea";
+export * from "./PlusIcon";
