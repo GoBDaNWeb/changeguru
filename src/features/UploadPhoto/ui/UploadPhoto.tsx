@@ -1,11 +1,19 @@
 import { UploadIcon } from "shared/ui/UploadIcon";
 import s from "./styles.module.sass";
+import { FC } from "react";
 
-export const UploadPhoto = () => {
+interface IUploadPhotoProps {
+  className?: string;
+  label: string;
+}
+
+export const UploadPhoto: FC<IUploadPhotoProps> = ({ className, label }) => {
+  const uploadPhotoClass = `${s.uploadPhoto} ${className ? className : ""}`;
+
   return (
-    <div className={s.uploadPhoto}>
+    <div className={uploadPhotoClass}>
       <UploadIcon />
-      <span>Upload Logo</span>
+      <span>{label}</span>
     </div>
   );
 };

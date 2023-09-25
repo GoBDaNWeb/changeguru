@@ -18,7 +18,7 @@ export const ExchangeRegister: FC<IExchangeRegisterProps> = ({
           <span className={s.sectionTitle}>Basic Information</span>
           <Input placeholder="Name of Exchange" />
           <Input placeholder="Web Site" />
-          <UploadPhoto />
+          <UploadPhoto label="Upload Logo" />
         </div>
         <div className={s.section}>
           <span className={s.sectionTitle}>Personal data</span>

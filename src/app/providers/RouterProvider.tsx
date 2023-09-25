@@ -5,6 +5,8 @@ import { MainLayout } from "layouts/MainLayout";
 import { AboutUsPage } from "pages/about-us";
 import { PATH_PAGE } from "shared/lib/react-router";
 import { RegisterPage } from "pages/register";
+import { UserProfilePage } from "pages/user-profile";
+import { ExchangeProfilePage } from "pages/exchange-profile";
 
 const Router = () => {
   return useRoutes([
@@ -18,6 +20,8 @@ const Router = () => {
         { path: PATH_PAGE.faq, element: <FaqPage /> },
         { path: PATH_PAGE.about, element: <AboutUsPage /> },
         { path: PATH_PAGE.register, element: <RegisterPage /> },
+        { path: PATH_PAGE.userProfile, element: <UserProfilePage /> },
+        { path: PATH_PAGE.exchangeProfile, element: <ExchangeProfilePage /> },
       ],
     },
   ]);

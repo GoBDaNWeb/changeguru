@@ -3,4 +3,6 @@ export const PATH_PAGE = {
   about: "/about-us",
   faq: "/faq",
   register: "/register",
+  userProfile: "/user-profile",
+  exchangeProfile: "/exchange-profile",
 };

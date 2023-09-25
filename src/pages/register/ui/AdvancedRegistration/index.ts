@@ -1,1 +1,0 @@
-export { AdvancedRegistration } from "./AdvancedRegistration";

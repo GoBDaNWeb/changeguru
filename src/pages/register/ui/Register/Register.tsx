@@ -8,8 +8,8 @@ import s from "./styles.module.sass";
 import { Breadcrumbs, Title, Tab } from "shared/ui";
 import { UserRegister } from "../UserRegister";
 import { ExchangeRegister } from "../ExchangeRegister";
-import { AdvancedRegistration } from "../AdvancedRegistration";
 import { RegisterComplited } from "../RegisterComplited/RegisterComplited";
+import { AdvancedSetting } from "features/AdvancedSetting";
 
 export const RegisterPage = () => {
   const [registerStep, setRegisterStep] = useState(0);
@@ -71,7 +71,7 @@ export const RegisterPage = () => {
               {registerStep === 0 ? (
                 <ExchangeRegister onChangeStep={() => setRegisterStep(1)} />
               ) : (
-                <AdvancedRegistration onComplite={() => setCompleted(true)} />
+                <AdvancedSetting onSubmit={() => setCompleted(true)} />
               )}
             </TabPanel>
           </Tabs>

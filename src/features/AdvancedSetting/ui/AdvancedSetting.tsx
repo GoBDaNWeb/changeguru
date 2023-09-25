@@ -1,18 +1,14 @@
-import { Button, Checkbox, Selector } from "shared/ui";
+import { countryList } from "shared/config";
+import { Button, Checkbox, CheckboxGroup, Selector } from "shared/ui";
 import s from "./styles.module.sass";
-import { CheckboxGroup } from "shared/ui/CheckboxGroup";
-import { countryList } from "../../config";
 import { FC } from "react";
-
-interface IAdvancedRegistrationProps {
-  onComplite: () => void;
+interface IAdvancedSettingProps {
+  onSubmit: () => void;
 }
 
-export const AdvancedRegistration: FC<IAdvancedRegistrationProps> = ({
-  onComplite,
-}) => {
+export const AdvancedSetting: FC<IAdvancedSettingProps> = ({ onSubmit }) => {
   return (
-    <div className={s.advancedRegistration}>
+    <div className={s.advancedSetting}>
       <form className={s.form}>
         <div className={s.sectionCheckboxGroup}>
           <CheckboxGroup
@@ -151,7 +147,7 @@ export const AdvancedRegistration: FC<IAdvancedRegistrationProps> = ({
           </div>
         </div>
 
-        <Button onClick={onComplite} className={s.submitBtn}>
+        <Button onClick={onSubmit} className={s.submitBtn}>
           Submit Form
         </Button>
       </form>
