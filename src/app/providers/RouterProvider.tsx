@@ -3,7 +3,7 @@ import { MainPage } from "pages/main";
 import { FaqPage } from "pages/faq";
 import { MainLayout } from "layouts/MainLayout";
 import { AboutUsPage } from "pages/about-us";
-import { PATH_PAGE } from "shared/lib/react-router";
+import { PATH_PAGE } from "shared/lib";
 import { RegisterPage } from "pages/register";
 import { UserProfilePage } from "pages/user-profile";
 import { ExchangeProfilePage } from "pages/exchange-profile";

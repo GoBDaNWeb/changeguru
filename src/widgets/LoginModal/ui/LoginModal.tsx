@@ -1,9 +1,10 @@
-import { useLoginModalStore } from "features/LoginModal";
-import { Backdrop, Button, Input, ModalWrapper } from "shared/ui";
+import { useModalStore } from "entities/Modal/model";
+import { Backdrop, Button, EyeIcon, Input, ModalWrapper } from "shared/ui";
 import { observer } from "mobx-react-lite";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import s from "./styles.module.sass";
-import { useRecoveryPasswordModalStore } from "features/RecoveryPasswordModal";
+import { changePasswordType } from "shared/lib/changePasswordType";
+
 interface IFooterProps {
   onClick: () => void;
 }
@@ -11,28 +12,29 @@ interface IFooterProps {
 export const LoginModal = observer(() => {
   const [showModal, setShowModal] = useState(false);
 
-  const { modalIsOpen: loginOpen, handleOpenModal: handleOpenLogin } =
-    useLoginModalStore();
-  const { handleOpenModal: handleOpenRecover } =
-    useRecoveryPasswordModalStore();
+  const {
+    loginModalIsOpen,
+    handleOpenLoginModal,
+    handleOpenRecoveryModal: openRecover,
+  } = useModalStore();
 
   useEffect(() => {
-    setShowModal(loginOpen);
-  }, [loginOpen]);
+    setShowModal(loginModalIsOpen);
+  }, [loginModalIsOpen]);
 
   const handleClose = () => {
     setShowModal(false);
     setTimeout(() => {
-      handleOpenLogin();
+      handleOpenLoginModal();
     }, 300);
   };
 
   const handleOpenRecoverModal = () => {
     handleClose();
-    handleOpenRecover();
+    openRecover();
   };
 
-  if (!loginOpen) {
+  if (!loginModalIsOpen) {
     return null;
   }
 
@@ -49,10 +51,24 @@ export const LoginModal = observer(() => {
 });
 
 const BodyModal = () => {
+  const passwordRef = useRef<HTMLInputElement>(null);
+
   return (
     <div className={s.body}>
       <Input placeholder="Email/ID" />
-      <Input placeholder="Password" />
+      <Input
+        placeholder="Password"
+        type="password"
+        ref={passwordRef}
+        icon={
+          <Button
+            onClick={() => changePasswordType(passwordRef)}
+            variant="clear"
+          >
+            <EyeIcon />
+          </Button>
+        }
+      />
       <Button onClick={() => {}} className={s.loginBtn}>
         Login
       </Button>

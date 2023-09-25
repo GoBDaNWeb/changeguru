@@ -7,14 +7,14 @@ export const FiltersIcon = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g id="icon/filtr" clip-path="url(#clip0_634_4178)">
+      <g id="icon/filtr" clipPath="url(#clip0_634_4178)">
         <path
           id="Vector 3254"
           d="M6.78788 14.3333V9L1 2.77778V1H17V2.77778L11.2121 9V17"
           stroke="#A2A8B0"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <defs>

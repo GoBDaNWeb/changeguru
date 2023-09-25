@@ -1,6 +1,8 @@
 import { fastSelectors } from "../../config";
-import { FastSelectorItem } from "../FastSelectorItem/FastSelectorItem";
+
 import s from "./styles.module.sass";
+
+import { FastSelectorItem } from "../FastSelectorItem/FastSelectorItem";
 
 export const FastSelectors = () => {
   return (

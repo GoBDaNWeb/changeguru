@@ -1,6 +1,8 @@
-import { UploadIcon } from "shared/ui/UploadIcon";
-import s from "./styles.module.sass";
 import { FC } from "react";
+
+import s from "./styles.module.sass";
+
+import { UploadIcon } from "shared/ui/UploadIcon";
 
 interface IUploadPhotoProps {
   className?: string;

@@ -1,5 +1,6 @@
-import { AdvancedSetting } from "features/AdvancedSetting";
 import s from "./styles.module.sass";
+
+import { AdvancedSetting } from "features/AdvancedSetting";
 
 export const AdvancedProfile = () => {
   return (

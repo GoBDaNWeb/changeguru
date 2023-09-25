@@ -1,6 +1,7 @@
-import { Title } from "shared/ui";
 import s from "./styles.module.sass";
+
 import { Converter } from "features/Converter";
+import { Title } from "shared/ui";
 
 export const Hero = () => {
   return (

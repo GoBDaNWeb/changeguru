@@ -10,9 +10,9 @@ export const ContactIcon = () => {
       <path
         d="M17.1109 9.95222C17.1109 13.4237 10.9998 18.3332 10.9998 18.3332C10.9998 18.3332 4.88867 13.4237 4.88867 9.95222C4.88867 6.48071 7.62471 3.6665 10.9998 3.6665C14.3749 3.6665 17.1109 6.48071 17.1109 9.95222Z"
         stroke="#A2A8B0"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

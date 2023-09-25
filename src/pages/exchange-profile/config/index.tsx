@@ -1,4 +1,4 @@
-import { PATH_PAGE } from "shared/lib/react-router";
+import { PATH_PAGE } from "shared/lib";
 import { AdvancedIcon, ContactIcon, PasswordIcon, UserIcon } from "shared/ui";
 
 export const breadcrumbsList = [

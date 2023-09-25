@@ -1,12 +1,15 @@
-import { Breadcrumbs, Title } from "shared/ui";
-import s from "./styles.module.sass";
-import { Profile } from "widgets/Profile";
-import { breadcrumbsList, menuList } from "../../config";
 import { useState } from "react";
+
+import { breadcrumbsList, menuList } from "../../config";
+
+import s from "./styles.module.sass";
+
+import { Profile } from "widgets/Profile";
+
+import { Breadcrumbs, Title } from "shared/ui";
 import { BasicInfo } from "features/BasicInfo";
 import { ContactDetials } from "features/ContactDetials";
 import { ChangePassword } from "features/ChangePassword";
-import { AdvancedSetting } from "features/AdvancedSetting";
 import { AdvancedProfile } from "../AdvancedProfile/AdvancedProfile";
 
 export const ExchangeProfilePage = () => {

@@ -5,7 +5,7 @@ import s from "./styles.module.sass";
 interface IButtonProps {
   children: ReactNode;
   variant?: "primary" | "additional" | "clear";
-  onClick: () => void;
+  onClick: any;
   className?: string;
   type?: "submit" | "button";
 }

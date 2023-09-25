@@ -1,7 +1,10 @@
-import { Accordion, Breadcrumbs, GradientBg, Title } from "shared/ui";
-import s from "./styles.module.sass";
-import { accordionList, breadcrumbsList } from "../config";
 import { useState } from "react";
+
+import { accordionList, breadcrumbsList } from "../config";
+
+import s from "./styles.module.sass";
+
+import { Accordion, Breadcrumbs, GradientBg, Title } from "shared/ui";
 
 export const FaqPage = () => {
   const [selectedAccordion, setSelectedAccordion] = useState<number | null>(

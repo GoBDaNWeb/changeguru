@@ -1,5 +1,6 @@
-import { Button, Input } from "shared/ui";
 import s from "./styles.module.sass";
+
+import { Button, Input } from "shared/ui";
 
 export const ContactDetials = () => {
   return (

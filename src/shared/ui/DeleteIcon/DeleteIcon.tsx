@@ -10,9 +10,9 @@ export const DeleteIcon = () => {
       <path
         d="M7.33312 19.5557L4.88867 6.11122L17.1109 6.11122L14.6665 19.5557L7.33312 19.5557Z"
         stroke="#A2A8B0"
-        stroke-width="2.44444"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2.44444"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <line
         x1="7.33355"
@@ -20,9 +20,9 @@ export const DeleteIcon = () => {
         x2="14.6669"
         y2="2.44428"
         stroke="#A2A8B0"
-        stroke-width="2.44444"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2.44444"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <line
         x1="9.77691"
@@ -30,9 +30,9 @@ export const DeleteIcon = () => {
         x2="12.2214"
         y2="12.2221"
         stroke="#A2A8B0"
-        stroke-width="2.44444"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2.44444"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

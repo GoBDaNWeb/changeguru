@@ -1,7 +1,9 @@
-import { Breadcrumbs, GradientBg, Title } from "shared/ui";
-import s from "./styles.module.sass";
 import { breadcrumbsList, sectionList } from "../../config";
+
+import s from "./styles.module.sass";
+
 import { Section } from "../Section/Section";
+import { Breadcrumbs, GradientBg, Title } from "shared/ui";
 
 export const AboutUsPage = () => {
   return (

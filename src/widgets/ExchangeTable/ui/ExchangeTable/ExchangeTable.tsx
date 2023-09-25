@@ -1,13 +1,14 @@
-import { FiltersIcon, OutlineHeartIcon, Title } from "shared/ui";
+import { OutlineHeartIcon, SortingIcon, Title } from "shared/ui";
 import s from "./styles.module.sass";
 import { exchangeList } from "../../config";
-import { Filters } from "features/Filters";
+import { TableFilters } from "features/TableFilters";
+
 export const ExchangeTable = () => {
   return (
     <div className={`${s.exchangeTable} container`}>
       <Title variant="h2">Exchange rates</Title>
       <div className={s.filtersWrapper}>
-        <Filters />
+        <TableFilters />
       </div>
       <div className={s.tableWrapper}>
         <table>
@@ -18,13 +19,13 @@ export const ExchangeTable = () => {
               </th>
               <th>I Have</th>
               <th>
-                <FiltersIcon /> I will Recieve
+                <SortingIcon /> I will Recieve
               </th>
               <th>
-                <FiltersIcon /> 24H Volume
+                <SortingIcon /> 24H Volume
               </th>
               <th>
-                <FiltersIcon /> Total Liqudity
+                <SortingIcon /> Total Liqudity
               </th>
               <th>KYC Level</th>
               <th>Ratings</th>

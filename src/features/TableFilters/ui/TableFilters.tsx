@@ -1,12 +1,14 @@
-import { FiltersIcon, Input } from "shared/ui";
 import s from "./styles.module.sass";
-export const Filters = () => {
+
+import { FiltersIcon, Input, SearchIcon } from "shared/ui";
+
+export const TableFilters = () => {
   return (
     <div className={s.filters}>
       <button>
         <FiltersIcon /> <span>Advanced Filters</span>
       </button>
-      <Input placeholder="search" className={s.search} />
+      <Input placeholder="search" className={s.search} icon={<SearchIcon />} />
     </div>
   );
 };

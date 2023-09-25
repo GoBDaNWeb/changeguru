@@ -1,31 +1,63 @@
-import { Button, Input, Selector } from "shared/ui";
 import s from "./styles.module.sass";
-import { countryList, genderList } from "../../config";
-import { FC } from "react";
+
+import { Button, EyeIcon, Input, Selector } from "shared/ui";
+
+import { countryList, genderList } from "shared/config";
+import { FC, RefObject, useRef } from "react";
+import { changePasswordType } from "shared/lib";
 
 interface IUserRegisterProps {
   onComplite: () => void;
 }
 
 export const UserRegister: FC<IUserRegisterProps> = ({ onComplite }) => {
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const repeatPasswordRef = useRef<HTMLInputElement>(null);
+
   return (
     <div className={s.userRegister}>
       <form className={s.form}>
         <div className={s.section}>
           <span className={s.sectionTitle}>Basic Information</span>
-          <Input placeholder="Email/ID" />
+          <Input placeholder="Email/ID" className={s.input} />
           <div className={s.withHint}>
-            <Input placeholder="Password" />
+            <Input
+              placeholder="Password"
+              type="password"
+              ref={passwordRef}
+              icon={
+                <Button
+                  onClick={() => changePasswordType(passwordRef)}
+                  variant="clear"
+                >
+                  <EyeIcon />
+                </Button>
+              }
+              className={s.input}
+            />
             <p className={s.hint}>
               8 or more characters, including numbers and special characters
             </p>
           </div>
-          <Input placeholder="Repeat password" />
+          <Input
+            placeholder="Repeat password"
+            type="password"
+            ref={repeatPasswordRef}
+            icon={
+              <Button
+                onClick={() => changePasswordType(repeatPasswordRef)}
+                variant="clear"
+              >
+                <EyeIcon />
+              </Button>
+            }
+            className={s.input}
+          />
         </div>
         <div className={s.section}>
           <span className={s.sectionTitle}>Personal data</span>
           <div className={s.withHint}>
-            <Input placeholder="NickName" />
+            <Input placeholder="NickName" className={s.input} />
             <p className={s.hint}>Excluding special characters</p>
           </div>
           <Selector
@@ -35,7 +67,7 @@ export const UserRegister: FC<IUserRegisterProps> = ({ onComplite }) => {
             name="country"
           />
           <div className={s.withHint}>
-            <Input placeholder="Phone" />
+            <Input placeholder="Phone" className={s.input} />
             <p className={s.hint}>Enter numbers only</p>
           </div>
           <Selector
@@ -44,7 +76,7 @@ export const UserRegister: FC<IUserRegisterProps> = ({ onComplite }) => {
             className={s.selector}
             name="gender"
           />
-          <Input placeholder="Age" />
+          <Input placeholder="Age" className={s.input} />
         </div>
         <Button onClick={onComplite} className={s.regBtn}>
           Pre-Registration

@@ -1,7 +1,11 @@
-import { countryList } from "shared/config";
-import { Button, Checkbox, CheckboxGroup, Selector } from "shared/ui";
-import s from "./styles.module.sass";
 import { FC } from "react";
+
+import { countryList } from "shared/config";
+
+import s from "./styles.module.sass";
+
+import { Button, Checkbox, CheckboxGroup, Selector } from "shared/ui";
+
 interface IAdvancedSettingProps {
   onSubmit: () => void;
 }

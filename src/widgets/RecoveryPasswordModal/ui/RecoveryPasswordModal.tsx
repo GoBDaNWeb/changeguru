@@ -2,25 +2,25 @@ import { Backdrop, Button, Input, ModalWrapper } from "shared/ui";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import s from "./styles.module.sass";
-import { useRecoveryPasswordModalStore } from "features/RecoveryPasswordModal";
+import { useModalStore } from "entities/Modal";
 
 export const RecoveryPasswordModal = observer(() => {
   const [showModal, setShowModal] = useState(false);
 
-  const { modalIsOpen, handleOpenModal } = useRecoveryPasswordModalStore();
+  const { recoveryModalIsOpen, handleOpenRecoveryModal } = useModalStore();
 
   useEffect(() => {
-    setShowModal(modalIsOpen);
-  }, [modalIsOpen]);
+    setShowModal(recoveryModalIsOpen);
+  }, [recoveryModalIsOpen]);
 
   const handleClose = () => {
     setShowModal(false);
     setTimeout(() => {
-      handleOpenModal();
+      handleOpenRecoveryModal();
     }, 300);
   };
 
-  if (!modalIsOpen) {
+  if (!recoveryModalIsOpen) {
     return null;
   }
   return (

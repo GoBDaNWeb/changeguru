@@ -1,6 +1,9 @@
-import { Button, Input, Selector, TextArea } from "shared/ui";
+import { Button, CalendarIcon, Input, Selector, TextArea } from "shared/ui";
+
+import { countryList } from "shared/config";
+
 import s from "./styles.module.sass";
-import { countryList, genderList } from "shared/config";
+
 import { UploadPhoto } from "features/UploadPhoto";
 import { AddManager } from "features/AddManager";
 
@@ -21,7 +24,7 @@ export const BasicInfo = () => {
             placeholder="Country"
             name="country"
           />
-          <Input placeholder="Launch Date" />
+          <Input placeholder="Launch Date" icon={<CalendarIcon />} />
         </div>
         <UploadPhoto label="Upload Logo" />
         <div className={s.managerWrapper}>

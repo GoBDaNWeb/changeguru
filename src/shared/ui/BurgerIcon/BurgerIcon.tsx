@@ -7,12 +7,12 @@ export const BurgerIcon = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_703_3846)">
+      <g clipPath="url(#clip0_703_3846)">
         <path
           d="M1 1H31M1 17H31M1 9H16"
           stroke="#21B1AB"
-          stroke-width="2"
-          stroke-linecap="round"
+          strokeWidth="2"
+          strokeLinecap="round"
         />
       </g>
       <defs>

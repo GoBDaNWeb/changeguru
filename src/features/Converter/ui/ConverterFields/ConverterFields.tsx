@@ -1,6 +1,8 @@
-import { Button, Input, Selector } from "shared/ui";
 import { converterData } from "../../config";
+
 import s from "./styles.module.sass";
+
+import { Button, Input, Selector } from "shared/ui";
 
 export const ConverterFields = () => {
   return (

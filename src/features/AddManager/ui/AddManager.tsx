@@ -1,5 +1,7 @@
 import { FC } from "react";
+
 import s from "./styles.module.sass";
+
 import { Button, PlusIcon } from "shared/ui";
 
 interface IAddManagerProps {

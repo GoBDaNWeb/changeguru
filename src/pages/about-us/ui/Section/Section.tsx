@@ -1,6 +1,7 @@
 import { FC } from "react";
 
 import s from "./styles.module.sass";
+
 import { Title } from "shared/ui";
 
 interface ISectionProps {
