@@ -27,3 +27,5 @@ export * from "./FooterIcon";
 export * from "./CheckIcon";
 export * from "./SearchIcon";
 export * from "./CalendarIcon";
+export * from "./CloseIcon";
+export * from "./CancelIcon";

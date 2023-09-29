@@ -1,1 +1,1 @@
-export { TableFilters } from "./ui/TableFilters";
+export { TableFilters } from "./ui/TableFilters/TableFilters";

@@ -1,11 +1,14 @@
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import s from "./styles.module.sass";
-import { navigationList } from "../config";
-import { Button } from "shared/ui";
-import { PATH_PAGE } from "shared/lib";
 import { useEffect, useState } from "react";
-import { useModalStore } from "entities/Modal/model";
 import { observer } from "mobx-react-lite";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+
+import { navigationList } from "../config";
+import { PATH_PAGE } from "shared/lib";
+import { useModalStore } from "entities/Modal/model";
+
+import s from "./styles.module.sass";
+
+import { Button } from "shared/ui";
 import { BurgerIcon } from "shared/ui/BurgerIcon";
 
 export const Header = observer(() => {

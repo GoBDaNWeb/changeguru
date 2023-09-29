@@ -1,8 +1,9 @@
-import { DeleteIcon } from "shared/ui";
-import { menuList } from "../config";
-import s from "./styles.module.sass";
 import { Dispatch, FC, ReactNode, SetStateAction } from "react";
+
+import s from "./styles.module.sass";
+
 import { UploadPhoto } from "features/UploadPhoto";
+import { DeleteIcon } from "shared/ui";
 
 type MenuList = {
   title: string;

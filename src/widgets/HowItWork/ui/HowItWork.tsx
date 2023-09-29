@@ -1,7 +1,10 @@
-import { Title } from "shared/ui";
-import s from "./styles.module.sass";
 import { workList } from "../config";
+
+import s from "./styles.module.sass";
+
+import { Title } from "shared/ui";
 import { HowItWorkCard } from "entities/HowItWorkCard";
+
 export const HowItWork = () => {
   return (
     <div className={s.work}>

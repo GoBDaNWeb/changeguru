@@ -1,6 +1,8 @@
-import { OutlineHeartIcon, SortingIcon, Title } from "shared/ui";
-import s from "./styles.module.sass";
 import { exchangeList } from "../../config";
+
+import s from "./styles.module.sass";
+
+import { OutlineHeartIcon, SortingIcon, Title } from "shared/ui";
 import { TableFilters } from "features/TableFilters";
 
 export const ExchangeTable = () => {

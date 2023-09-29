@@ -1,9 +1,12 @@
-import { useModalStore } from "entities/Modal/model";
-import { Backdrop, Button, EyeIcon, Input, ModalWrapper } from "shared/ui";
-import { observer } from "mobx-react-lite";
 import { FC, useEffect, useRef, useState } from "react";
+import { observer } from "mobx-react-lite";
+
+import { useModalStore } from "entities/Modal/model";
+
 import s from "./styles.module.sass";
+
 import { changePasswordType } from "shared/lib/changePasswordType";
+import { Backdrop, Button, EyeIcon, Input, ModalWrapper } from "shared/ui";
 
 interface IFooterProps {
   onClick: () => void;

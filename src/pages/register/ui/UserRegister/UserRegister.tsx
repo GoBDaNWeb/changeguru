@@ -1,10 +1,11 @@
+import { FC, useRef } from "react";
+
+import { countryList, genderList } from "shared/config";
+import { changePasswordType } from "shared/lib";
+
 import s from "./styles.module.sass";
 
 import { Button, EyeIcon, Input, Selector } from "shared/ui";
-
-import { countryList, genderList } from "shared/config";
-import { FC, RefObject, useRef } from "react";
-import { changePasswordType } from "shared/lib";
 
 interface IUserRegisterProps {
   onComplite: () => void;

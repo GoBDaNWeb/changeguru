@@ -1,5 +1,6 @@
-import { FooterIcon, Title } from "../../../shared/ui";
 import s from "./styles.module.sass";
+
+import { FooterIcon, Title } from "shared/ui";
 
 export const Footer = () => {
   return (

@@ -1,6 +1,7 @@
 import { FC, ReactElement } from "react";
-import { Button, Title } from "..";
 import s from "./styles.module.sass";
+
+import { Button, Title } from "..";
 import { CloseIcon } from "../CloseIcon";
 
 interface IModalWrapperProps {

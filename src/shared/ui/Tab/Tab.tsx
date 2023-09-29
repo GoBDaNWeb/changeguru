@@ -3,6 +3,7 @@ import {
   ReactTabsFunctionComponent,
   TabProps,
 } from "react-tabs";
+
 import s from "./styles.module.sass";
 
 export const Tab: ReactTabsFunctionComponent<TabProps> = ({

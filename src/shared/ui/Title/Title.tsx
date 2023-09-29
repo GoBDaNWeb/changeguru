@@ -1,4 +1,5 @@
 import { FC, ReactNode } from "react";
+
 import s from "./styles.module.sass";
 
 interface ITitleProps {

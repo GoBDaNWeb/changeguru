@@ -1,8 +1,8 @@
 import { FC } from "react";
 
 import s from "./styles.module.sass";
+
 import { Checkbox } from "..";
-// import { Checkbox } from "..";
 
 interface ICheckboxGroupProps {
   id: string;
