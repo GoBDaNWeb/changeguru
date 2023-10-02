@@ -6,6 +6,7 @@ import { useModalStore } from "entities/Modal";
 import s from "./styles.module.sass";
 
 import { Backdrop, Button, Input, ModalWrapper } from "shared/ui";
+import { FieldValues, useForm } from "react-hook-form";
 
 export const RecoveryPasswordModal = observer(() => {
   const [showModal, setShowModal] = useState(false);
@@ -38,9 +39,18 @@ export const RecoveryPasswordModal = observer(() => {
 });
 
 const BodyModal = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    defaultValues: {
+      email: "",
+    },
+  });
+
   return (
     <div className={s.body}>
-      <Input placeholder="Email/ID" />
+      <Input id="email" register={register} placeholder="Email/ID" />
       <Button onClick={() => {}} className={s.recoveryBtn}>
         Send recowery email
       </Button>

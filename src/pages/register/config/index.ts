@@ -1,4 +1,4 @@
-import { PATH_PAGE } from "shared/lib";
+import { PATH_PAGE } from "shared/config";
 
 export const breadcrumbsList = [
   {

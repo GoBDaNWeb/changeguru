@@ -1,4 +1,4 @@
-.inputWrapper
+.inputLabelWrapper
     display: flex
     align-items: center
     border-radius: var(--rounded-lg)
@@ -8,6 +8,7 @@
     box-sizing: border-box
     height: 58px
     width: 100%
+    z-index: var(--z-content)
     &:hover
         border-color: var(--emerald-color)
     &:focus
@@ -27,6 +28,7 @@
         line-height: 100%
         letter-spacing: -0.8px
         box-sizing: border-box
+        background: var(--white-color)
         &:hover
             border-color: var(--emerald-color)
         &::placeholder

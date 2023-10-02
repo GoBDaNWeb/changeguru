@@ -10,16 +10,16 @@ export const CancelIcon = () => {
       <path
         d="M4.88892 4.88892L11 11L17.1111 4.88892"
         stroke="#A2A8B0"
-        stroke-width="2.44444"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2.44444"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M17.1111 17.1111L11 11L4.88886 17.1111"
         stroke="#A2A8B0"
-        stroke-width="2.44444"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2.44444"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

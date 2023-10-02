@@ -7,6 +7,7 @@ import s from "./styles.module.sass";
 
 import { changePasswordType } from "shared/lib/changePasswordType";
 import { Backdrop, Button, EyeIcon, Input, ModalWrapper } from "shared/ui";
+import { FieldValues, useForm } from "react-hook-form";
 
 interface IFooterProps {
   onClick: () => void;
@@ -56,10 +57,22 @@ export const LoginModal = observer(() => {
 const BodyModal = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
 
+  const {
+    register,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
   return (
     <div className={s.body}>
-      <Input placeholder="Email/ID" />
+      <Input id="email" register={register} placeholder="Email/ID" />
       <Input
+        id="password"
+        register={register}
         placeholder="Password"
         type="password"
         ref={passwordRef}

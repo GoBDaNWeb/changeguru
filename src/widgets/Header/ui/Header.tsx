@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { navigationList } from "../config";
-import { PATH_PAGE } from "shared/lib";
+import { PATH_PAGE } from "shared/config";
 import { useModalStore } from "entities/Modal/model";
 
 import s from "./styles.module.sass";

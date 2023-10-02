@@ -1,2 +1,2 @@
 export * from "./changePasswordType";
-export * from "./react-router";
+export * from "./hooks";

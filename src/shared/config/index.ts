@@ -1,3 +1,4 @@
+export const API_URL = "https://api.changeguru.io/api";
 export const countryList = [
   {
     label: "Russia",
@@ -22,3 +23,5 @@ export const genderList = [
     value: "female",
   },
 ];
+
+export * from "./routes";

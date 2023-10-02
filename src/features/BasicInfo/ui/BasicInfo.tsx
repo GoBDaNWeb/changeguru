@@ -6,15 +6,27 @@ import s from "./styles.module.sass";
 
 import { UploadPhoto } from "features/UploadPhoto";
 import { AddManager } from "features/AddManager";
+import { FieldValues, useForm } from "react-hook-form";
 
 export const BasicInfo = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    defaultValues: {
+      name: "",
+      website: "",
+      date: "",
+    },
+  });
+
   return (
     <div className={s.info}>
       <span className={s.title}>Basic Information</span>
       <form className={s.infoForm}>
         <div className={s.mainName}>
-          <Input placeholder="Name of Exchange" />
-          <Input placeholder="Website" />
+          <Input id="name" register={register} placeholder="Name of Exchange" />
+          <Input id="website" register={register} placeholder="Website" />
         </div>
         <TextArea placeholder="Short Description" />
         <TextArea placeholder="Long Description" />
@@ -24,7 +36,12 @@ export const BasicInfo = () => {
             placeholder="Country"
             name="country"
           />
-          <Input placeholder="Launch Date" icon={<CalendarIcon />} />
+          <Input
+            id="date"
+            register={register}
+            placeholder="Launch Date"
+            icon={<CalendarIcon />}
+          />
         </div>
         <UploadPhoto label="Upload Logo" />
         <div className={s.managerWrapper}>
