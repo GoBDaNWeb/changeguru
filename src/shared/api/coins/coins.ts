@@ -3,7 +3,12 @@ import { apiInstance } from "../base";
 const BASE_URL = "/coins";
 
 export type TopCoins = {
-  [x: string]: any;
+  success: boolean;
+  data: string[];
+};
+
+export type CoinsData = {
+  [x: string]: string;
 };
 
 export const getTopCoins = (): Promise<TopCoins> => {

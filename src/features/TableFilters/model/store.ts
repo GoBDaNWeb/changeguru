@@ -1,7 +1,8 @@
 import { makeAutoObservable } from "mobx";
+import { ExchangeFeatures } from "widgets/ExchangeTable/ui/ExchangeTable";
 
 class TableFiltersInfo {
-  filters = {
+  filters: ExchangeFeatures = {
     af_aml: false,
     af_2fa: false,
     af_mobileapp: false,

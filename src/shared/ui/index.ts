@@ -12,6 +12,7 @@ export * from "./Tab";
 export * from "./Checkbox";
 export * from "./CheckboxGroup";
 export * from "./TextArea";
+export * from "./Skeleton";
 
 //icons
 export * from "./PlusIcon";

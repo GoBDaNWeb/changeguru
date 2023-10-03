@@ -15,6 +15,7 @@ interface ISelectProps {
   defaultValue?: Option;
   value?: any;
   onChange?: any;
+  isClearable?: boolean;
 }
 
 export const Selector: FC<ISelectProps> = ({
@@ -25,12 +26,13 @@ export const Selector: FC<ISelectProps> = ({
   defaultValue,
   value,
   onChange,
+  isClearable = true,
 }) => {
   const selectClass = `select ${className ? className : ""}`;
 
   return (
     <Select
-      isClearable
+      isClearable={isClearable}
       onChange={onChange}
       placeholder={placeholder}
       name={name}

@@ -11,8 +11,13 @@ import s from "./styles.module.sass";
 import { Button, Input, Selector } from "shared/ui";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 
+type TopCoins = {
+  value: string;
+  label: string;
+};
+
 export const ConverterFields = observer(() => {
-  const [topCoins, setTopCoins] = useState([]);
+  const [topCoins, setTopCoins] = useState<TopCoins[]>([]);
 
   const store = useConverterStore();
 

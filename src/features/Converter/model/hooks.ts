@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { ConverterStoreContext } from "./context";
+import { coinsApi } from "shared/api";
 
 export const useConverterStore = () => {
   const store = useContext(ConverterStoreContext);
@@ -9,4 +10,30 @@ export const useConverterStore = () => {
   }
 
   return store;
+};
+
+export const useGetTopCoins = () => {
+  const [topCoins, setTopCoins] = useState<string[]>([]);
+  const [isLoading, setLoading] = useState(true);
+
+  const handleGetTopCoins = async () => {
+    setLoading(true);
+    try {
+      const { data } = await coinsApi.getTopCoins();
+      setTopCoins(data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    handleGetTopCoins();
+  }, []);
+
+  return {
+    topCoins,
+    isLoading,
+  };
 };
