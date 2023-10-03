@@ -1,24 +1,38 @@
 import { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
+import InputMask from "react-input-mask";
 
 import { coinsApi } from "shared/api";
 import { converterData } from "../../config";
+import { useConverterStore } from "features/Converter";
 
 import s from "./styles.module.sass";
 
 import { Button, Input, Selector } from "shared/ui";
-import { FieldValues, useForm } from "react-hook-form";
+import { Controller, FieldValues, useForm } from "react-hook-form";
 
-export const ConverterFields = () => {
+export const ConverterFields = observer(() => {
   const [topCoins, setTopCoins] = useState([]);
 
+  const store = useConverterStore();
+
   const {
+    handleSubmit,
     register,
+    control,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
+      want: {},
+      have: {},
       quality: "",
     },
   });
+
+  const WatchHave = watch("have");
+  const WatchWant = watch("want");
 
   const handleGetTopCoins = async () => {
     const response = await coinsApi.getTopCoins();
@@ -28,18 +42,110 @@ export const ConverterFields = () => {
     setTopCoins(options);
   };
 
+  const onSubmit = (data: any) => {
+    const info = {
+      have: data.have.label,
+      want: data.want.label,
+      haveCount: data.quality,
+    };
+    store.handleSetConverterInfo(info);
+  };
+
   useEffect(() => {
     handleGetTopCoins();
   }, []);
 
+  useEffect(() => {
+    if (store.have) {
+      setValue("have", {
+        value: store.have.toLowerCase(),
+        label: store.have,
+      });
+    }
+  }, [store.have]);
+
+  useEffect(() => {
+    if (store.want) {
+      setValue("want", {
+        value: store.want.toLowerCase(),
+        label: store.want,
+      });
+    }
+  }, [store.want]);
+
+  useEffect(() => {
+    if (WatchHave) {
+      store.handleSetHave(WatchHave.label);
+    }
+  }, [WatchHave]);
+
+  useEffect(() => {
+    if (WatchWant) {
+      store.handleSetWant(WatchWant.label);
+    }
+  }, [WatchWant]);
+
   return (
-    <div className={s.fields}>
-      <Selector options={topCoins} placeholder="I Have" name="have" />
-      <Selector options={topCoins} placeholder="I Want" name="want" />
-      <Input id="quality" register={register} placeholder="Quality" />
-      <Button onClick={() => {}} className={s.updateBtn}>
+    <form onSubmit={handleSubmit(onSubmit)} className={s.fields}>
+      <Controller
+        control={control}
+        name="have"
+        render={({ field: { onChange } }) => {
+          const handleChange = (e: any) => {
+            if (e.label === store.want) return;
+            onChange(e);
+          };
+          return (
+            <Selector
+              options={topCoins}
+              onChange={handleChange}
+              value={WatchHave}
+              placeholder="I Have"
+              name="have"
+            />
+          );
+        }}
+      />
+      <Controller
+        control={control}
+        name="want"
+        render={({ field: { onChange } }) => {
+          const handleChange = (e: any) => {
+            if (e.label === store.have) return;
+            onChange(e);
+          };
+          return (
+            <Selector
+              options={topCoins}
+              onChange={handleChange}
+              value={WatchWant}
+              placeholder="I Want"
+              name="want"
+            />
+          );
+        }}
+      />
+      <Controller
+        control={control}
+        name="quality"
+        rules={{ required: true, pattern: /^\d+$/ }}
+        render={({ field: { onChange, value } }) => {
+          return (
+            <Input
+              id="quality"
+              errors={errors}
+              register={register}
+              required
+              placeholder="Quality"
+              value={value.replace(/[^0-9]/g, "")}
+            />
+          );
+        }}
+      />
+
+      <Button onClick={() => {}} type="submit" className={s.updateBtn}>
         Update
       </Button>
-    </div>
+    </form>
   );
-};
+});

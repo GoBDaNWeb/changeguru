@@ -10,7 +10,7 @@ import { coinsApi } from "shared/api";
 
 export const TableFilters = () => {
   const [allCoins, setAllCoins] = useState<string[]>([]);
-  const [searchedCoins, setSearchedCoins] = useState<string[]>([]);
+  const [searchedCoins, setSearchedCoins] = useState<string[] | null>(null);
   const [filtersIsOpen, setOpenFilter] = useState(false);
 
   const {
@@ -22,7 +22,6 @@ export const TableFilters = () => {
       search: "",
     },
   });
-  console.log("allCoins", allCoins);
 
   const WatchSearch = watch("search");
 
@@ -34,6 +33,11 @@ export const TableFilters = () => {
   };
 
   useEffect(() => {
+    if (!debounced) {
+      setSearchedCoins(null);
+      return;
+    }
+
     const search = allCoins.filter((coin) => {
       return coin.toLowerCase().includes(debounced.toLowerCase());
     });
@@ -65,15 +69,19 @@ export const TableFilters = () => {
             className={s.search}
             icon={<SearchIcon />}
           />
-          <div className={s.dropdown}>
-            {searchedCoins.map((coin) => (
-              <span key={coin}>{coin}</span>
-            ))}
-          </div>
+          {searchedCoins ? (
+            <div className={s.dropdownWrapper}>
+              <div className={s.dropdown}>
+                {searchedCoins.map((coin) => (
+                  <span key={coin}>{coin}</span>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
       <div className={s.filtersContent}>
-        <Filters isOpen={filtersIsOpen} />
+        <Filters handleOpen={setOpenFilter} isOpen={filtersIsOpen} />
       </div>
     </div>
   );

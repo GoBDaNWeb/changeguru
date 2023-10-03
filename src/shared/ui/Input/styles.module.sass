@@ -1,3 +1,13 @@
+.inputLabelWrapper.error
+    background: var(--error-bg-color)
+    .input
+        background: var(--error-bg-color)
+        border-color: var(--error-color)
+        &::placeholder
+            color: var(--gray-light-color)
+        &:focus
+            background: var(--error-bg-color)
+            border-color: var(--error-color)
 .inputLabelWrapper
     display: flex
     align-items: center

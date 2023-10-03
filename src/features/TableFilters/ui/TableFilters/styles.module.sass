@@ -16,24 +16,25 @@
                 width: 522px
                 @media(max-width: $tab-sm)
                     width: 100%
-            .dropdown
-                top: 0
-                border-radius: var(--rounded-lg)
-                box-sizing: border-box
+            .dropdownWrapper
                 padding: 70px 20px 20px
-                max-height: 300px
                 background: var(--white-color)
-                overflow: auto
+                border-radius: var(--rounded-lg)
+                top: 0
                 position: absolute
-                display: flex
-                flex-direction: column
-                gap: 10px
-                box-shadow: var(--shadow)
                 width: 100%
-                scrollbar-width: thin
-                scrollbar-color: #daebf5 #ffffff
-                &::-webkit-scrollbar
-                    width: 10px
+                box-sizing: border-box
+                box-shadow: var(--shadow)
+                .dropdown
+                    max-height: 300px
+                    overflow: auto
+                    display: flex
+                    flex-direction: column
+                    gap: 10px
+                    scrollbar-width: thin
+                    scrollbar-color: #daebf5 #ffffff
+                    &::-webkit-scrollbar
+                        width: 10px
         .fiterBtn.active
             color: var(--emerald-color)
             svg

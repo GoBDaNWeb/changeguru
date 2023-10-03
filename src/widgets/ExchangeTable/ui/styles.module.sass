@@ -23,7 +23,20 @@
                     gap: 1%
                     border-bottom: 1px solid var(--gray-light-color)
                     padding-bottom: 34px
+                    th.sort.active
+                        color: var(--emerald-color)
+                        svg
+                            path
+                                stroke: var(--emerald-color)
+                    th.sort
+                        cursor: pointer
+                        &:hover
+                            color: var(--emerald-color)
+                            svg
+                                path
+                                    stroke: var(--emerald-color)
                     th
+                        color: var(--gray-text-color)
                         width: 100%
                         display: flex
                         gap: 5px
@@ -32,10 +45,15 @@
                         font-weight: 500
                         line-height: 100%
                         letter-spacing: -0.64px
+                        transition: var(--trs-500)
                         &:first-child
                             gap: 30px
+                        svg
+                            path
+                                transition: var(--trs-500)
             tbody
                 tr
+                    cursor: pointer
                     display: grid
                     gap: 1%
                     grid-template-columns: 14% 12% 12% 12% 12% 11% 8% 8% 5%
@@ -51,3 +69,6 @@
                         font-weight: 500
                         line-height: 100%
                         letter-spacing: -0.8px
+                        img
+                            width: 30px
+                            height: 30px

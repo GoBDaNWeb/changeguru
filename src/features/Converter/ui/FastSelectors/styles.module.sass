@@ -32,6 +32,17 @@
         @media(max-width: $mob)
             flex-direction: column
             align-items: flex-start
+        .coinItem.active
+            border-color: var(--emerald-color)
+        .coinItem
+            color: var(--dark-color)
+            cursor: pointer
+            padding: 10px
+            border: 1px solid rgba(0,0,0,0)
+            border-radius: var(--rounded-sm)
+            transition: var(--trs-500)
+            &:hover
+                border-color: var(--emerald-color)
     .top
         display: flex
         align-items: center

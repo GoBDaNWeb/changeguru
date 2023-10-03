@@ -1,12 +1,17 @@
+import { Dispatch, FC, SetStateAction } from "react";
+
 import { countryList } from "shared/config";
 
 import s from "./styles.module.sass";
 
-import { Selector } from "shared/ui";
-import { Button } from "shared/ui";
-import { CancelIcon } from "shared/ui";
+import { Selector, Button, CancelIcon } from "shared/ui";
 
-export const Settings = () => {
+interface ISettingsProps {
+  handleOpen: Dispatch<SetStateAction<boolean>>;
+  reset: () => void;
+}
+
+export const Settings: FC<ISettingsProps> = ({ handleOpen, reset }) => {
   return (
     <div className={s.settingsSection}>
       <div className={s.top}>
@@ -32,12 +37,18 @@ export const Settings = () => {
 
       <div className={s.bottom}>
         <div className={s.mainBtns}>
-          <Button onClick={() => {}}>apply</Button>
-          <Button onClick={() => {}} variant="additional">
+          <Button onClick={() => {}} type="submit">
+            apply
+          </Button>
+          <Button onClick={reset} variant="additional">
             reset
           </Button>
         </div>
-        <Button onClick={() => {}} variant="clear" className={s.cancelBtn}>
+        <Button
+          onClick={() => handleOpen(false)}
+          variant="clear"
+          className={s.cancelBtn}
+        >
           <CancelIcon />
           Cancel
         </Button>

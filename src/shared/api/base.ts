@@ -19,8 +19,6 @@ class ApiInstance {
         endpoint,
         options
       );
-      console.log("response", response);
-
       return response.data;
     } catch (error) {
       throw error;

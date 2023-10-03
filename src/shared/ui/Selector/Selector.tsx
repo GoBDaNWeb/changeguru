@@ -12,6 +12,9 @@ interface ISelectProps {
   placeholder: string;
   className?: string;
   name: string;
+  defaultValue?: Option;
+  value?: any;
+  onChange?: any;
 }
 
 export const Selector: FC<ISelectProps> = ({
@@ -19,17 +22,23 @@ export const Selector: FC<ISelectProps> = ({
   placeholder,
   className,
   name,
+  defaultValue,
+  value,
+  onChange,
 }) => {
   const selectClass = `select ${className ? className : ""}`;
 
   return (
     <Select
       isClearable
+      onChange={onChange}
       placeholder={placeholder}
       name={name}
+      defaultValue={defaultValue}
       options={options}
       className={selectClass}
       classNamePrefix="select"
+      value={value}
     />
   );
 };
