@@ -161,7 +161,7 @@ export const ExchangeTable = observer(() => {
                     </td>
                     <td>{item.total_liquidity} $</td>
                     <td>{item.kyc}</td>
-                    <td>{item.ratings}M</td>
+                    <td>{item.ratings}</td>
                     <td>{item.popularity}</td>
                     <td>
                       <OutlineHeartIcon />
