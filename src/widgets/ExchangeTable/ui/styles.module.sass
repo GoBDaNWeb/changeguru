@@ -52,6 +52,11 @@
                             path
                                 transition: var(--trs-500)
             tbody
+                .loader
+                    display: flex
+                    justify-content: center
+                    td
+                        justify-content: center
                 .empty
                     display: flex
                     justify-content: center
@@ -64,6 +69,11 @@
                     grid-template-columns: 14% 12% 12% 12% 12% 11% 8% 8% 5%
                     padding: 20px 0
                     border-bottom: 1px solid var(--gray-light-color)
+                    transition: var(--trs-500)
+                    &:hover
+                        border-color: var(--emerald-color) !important
+                        td
+                            color: var(--emerald-color)
                     td
                         width: 100%
                         display: flex
@@ -74,6 +84,7 @@
                         font-weight: 500
                         line-height: 100%
                         letter-spacing: -0.8px
+                        transition: var(--trs-500)
                         img
                             width: 30px
                             height: 30px

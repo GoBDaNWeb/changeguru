@@ -7,10 +7,6 @@ export type TopCoins = {
   data: string[];
 };
 
-export type CoinsData = {
-  [x: string]: string;
-};
-
 export const getTopCoins = (): Promise<TopCoins> => {
   return apiInstance.get(`${BASE_URL}/top`);
 };

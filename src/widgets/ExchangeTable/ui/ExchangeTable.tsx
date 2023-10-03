@@ -9,6 +9,7 @@ import { OutlineHeartIcon, SortingIcon, Title } from "shared/ui";
 import { TableFilters, useTableFiltersStore } from "features/TableFilters";
 import { useConverterStore } from "features/Converter";
 import { useGetRates } from "../model";
+import { ClipLoader, PulseLoader } from "react-spinners";
 
 export interface Exchange {
   name: string;
@@ -34,7 +35,6 @@ type Info = {
 };
 
 export const ExchangeTable = observer(() => {
-  // const [exchanges, setExchanges] = useState<Exchange[]>([]);
   const [sortBy, setSort] = useState<
     "default" | "recieve" | "volume" | "liqudity"
   >("default");
@@ -42,25 +42,15 @@ export const ExchangeTable = observer(() => {
   const converterStore = useConverterStore();
   const filtersStore = useTableFiltersStore();
 
-  const { exchanges } = useGetRates({
+  const { exchanges, isLoading } = useGetRates({
     from: converterStore.converterInfo.have,
     to: converterStore.converterInfo.want,
   });
 
-  // const handleGetRates = async () => {
-  //   const { data } = await ratesApi.getRates({
-  //     from: converterStore.converterInfo.have,
-  //     to: converterStore.converterInfo.want,
-  //   });
-  //   setExchanges(data);
-  // };
-
   const filteredExchanges = useMemo(() => {
     return exchanges?.filter((exchange) => {
-      // Проверяем, есть ли хотя бы один фильтр, который установлен в true и также есть в features монеты
       return Object.keys(filtersStore.filters).some((filterKey) => {
         return (
-          //@ts-ignore
           filtersStore.filters[filterKey] &&
           //@ts-ignore
           exchange.features.includes(filterKey)
@@ -86,10 +76,6 @@ export const ExchangeTable = observer(() => {
       );
     }
   }, [finalExchange, sortBy]);
-
-  // useEffect(() => {
-  //   handleGetRates();
-  // }, [converterStore.converterInfo.have, converterStore.converterInfo.want]);
 
   return (
     <div className={`${s.exchangeTable} container`}>
@@ -130,36 +116,51 @@ export const ExchangeTable = observer(() => {
             </tr>
           </thead>
           <tbody>
-            {!sortedExchanges || sortedExchanges.length === 0 ? (
-              <tr className={s.empty}>
-                <td>Exchanges list is empty</td>
+            {isLoading ? (
+              <tr className={s.loader}>
+                <PulseLoader
+                  color="#21B1AB"
+                  loading={isLoading}
+                  size={20}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
               </tr>
             ) : (
               <>
-                {sortedExchanges.slice(0, 12).map((item) => (
-                  <tr onClick={() => window.open(item.url)} key={item.name}>
-                    <td>
-                      <img src={item.logo} alt="exchange" />
-                      {item.name}
-                    </td>
-                    <td>
-                      {converterStore.converterInfo.haveCount} {item.info.from}
-                    </td>
-                    <td>
-                      {item.info.price} {item.info.to}
-                    </td>
-                    <td>
-                      {item.info.volume} {item.info.to}
-                    </td>
-                    <td>{item.total_liquidity} $</td>
-                    <td>{item.kyc}</td>
-                    <td>{item.ratings}</td>
-                    <td>{item.popularity}</td>
-                    <td>
-                      <OutlineHeartIcon />
-                    </td>
+                {!sortedExchanges || sortedExchanges.length === 0 ? (
+                  <tr className={s.empty}>
+                    <td>Exchanges list is empty</td>
                   </tr>
-                ))}
+                ) : (
+                  <>
+                    {sortedExchanges.slice(0, 12).map((item) => (
+                      <tr onClick={() => window.open(item.url)} key={item.name}>
+                        <td>
+                          <img src={item.logo} alt="exchange" />
+                          {item.name}
+                        </td>
+                        <td>
+                          {converterStore.converterInfo.haveCount}{" "}
+                          {item.info.from}
+                        </td>
+                        <td>
+                          {item.info.price} {item.info.to}
+                        </td>
+                        <td>
+                          {item.info.volume} {item.info.to}
+                        </td>
+                        <td>{item.total_liquidity} $</td>
+                        <td>{item.kyc}</td>
+                        <td>{item.ratings}</td>
+                        <td>{item.popularity}</td>
+                        <td>
+                          <OutlineHeartIcon />
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+                )}
               </>
             )}
           </tbody>
