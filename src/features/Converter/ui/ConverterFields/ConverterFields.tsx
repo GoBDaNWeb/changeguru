@@ -1,13 +1,12 @@
 import { useEffect, useMemo } from "react";
 import { observer } from "mobx-react-lite";
+import { Controller, FieldValues, useForm } from "react-hook-form";
 
 import { useConverterStore, useGetAllCoins } from "features/Converter";
 
 import s from "./styles.module.sass";
 
 import { Button, Input, Selector } from "shared/ui";
-import { Controller, FieldValues, useForm } from "react-hook-form";
-import WindowedSelect from "react-windowed-select";
 
 export const ConverterFields = observer(() => {
   const store = useConverterStore();
@@ -38,12 +37,6 @@ export const ConverterFields = observer(() => {
       label: option,
     }));
   }, [allCoins]);
-
-  // const options = useMemo(() => {
-  //   return allCoins.map((option) => {
-  //     return { value: option.toLowerCase(), label: option };
-  //   });
-  // }, [allCoins]);
 
   const onSubmit = (data: any) => {
     const info = {

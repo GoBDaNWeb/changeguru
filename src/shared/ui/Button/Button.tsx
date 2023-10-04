@@ -8,6 +8,7 @@ interface IButtonProps {
   onClick: any;
   className?: string;
   type?: "submit" | "button";
+  disable?: boolean;
 }
 
 export const Button: FC<IButtonProps> = ({
@@ -16,11 +17,17 @@ export const Button: FC<IButtonProps> = ({
   onClick,
   className,
   type = "button",
+  disable,
 }) => {
   const btnClass = `${s.button} ${s[variant]} ${className ? className : ""}`;
 
   return (
-    <button onClick={onClick} className={btnClass} type={type}>
+    <button
+      onClick={onClick}
+      className={btnClass}
+      type={type}
+      disabled={disable}
+    >
       {children}
     </button>
   );

@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 
 import s from "./styles.module.sass";
 
-import { OutlineHeartIcon, SortingIcon, Title } from "shared/ui";
+import { OutlineHeartIcon, Pagination, SortingIcon, Title } from "shared/ui";
 import { TableFilters, useTableFiltersStore } from "features/TableFilters";
 import { useConverterStore } from "features/Converter";
 import { useGetRates } from "../model";
@@ -40,6 +40,7 @@ export const ExchangeTable = observer(() => {
   const [prevSort, setPrevSort] = useState<
     "default" | "recieve" | "volume" | "liqudity"
   >("default");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const converterStore = useConverterStore();
   const filtersStore = useTableFiltersStore();
@@ -60,10 +61,6 @@ export const ExchangeTable = observer(() => {
       });
     });
   }, [exchanges, filtersStore.filters]);
-
-  // useEffect(() => {
-  //   setSortType("desc");
-  // }, [sortBy]);
 
   const finalExchange =
     filteredExchanges?.length > 0 ? filteredExchanges : exchanges;
@@ -116,6 +113,18 @@ export const ExchangeTable = observer(() => {
     }
     setPrevSort(sort);
   };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [converterStore.have, converterStore.want]);
+  console.log("sortedExchanges", sortedExchanges);
+
+  const itemsPerPage = 12;
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const totalPages = Math.ceil(sortedExchanges.length / itemsPerPage);
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = sortedExchanges.slice(startIndex, endIndex);
 
   return (
     <div className={`${s.exchangeTable} container`}>
@@ -174,7 +183,7 @@ export const ExchangeTable = observer(() => {
                   </tr>
                 ) : (
                   <>
-                    {sortedExchanges.slice(0, 12).map((item) => (
+                    {currentItems.map((item) => (
                       <tr onClick={() => window.open(item.url)} key={item.name}>
                         <td>
                           <img src={item.logo} alt="exchange" />
@@ -205,6 +214,14 @@ export const ExchangeTable = observer(() => {
             )}
           </tbody>
         </table>
+      </div>
+      <div className={s.paginationWrapper}>
+        <Pagination
+          page={currentPage}
+          totalPages={totalPages}
+          decPage={() => setCurrentPage((prev) => prev - 1)}
+          incPage={() => setCurrentPage((prev) => prev + 1)}
+        />
       </div>
     </div>
   );

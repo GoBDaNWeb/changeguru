@@ -1,3 +1,4 @@
+//ui
 export * from "./Button";
 export * from "./Title";
 export * from "./Selector";
@@ -13,6 +14,8 @@ export * from "./Checkbox";
 export * from "./CheckboxGroup";
 export * from "./TextArea";
 export * from "./Skeleton";
+export * from "./Pagination";
+export * from "./Table";
 
 //icons
 export * from "./PlusIcon";
