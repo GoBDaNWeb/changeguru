@@ -17,13 +17,19 @@ export const Pagination: FC<IPaginationProps> = ({
   decPage,
   incPage,
 }) => {
+  console.log("totalPages", totalPages);
+
   return (
     <div className={s.pagination}>
       <Button onClick={decPage} variant="clear" disable={page === 1}>
         prev
       </Button>
       <span className={s.page}>{page}</span>
-      <Button onClick={incPage} variant="clear" disable={page === totalPages}>
+      <Button
+        onClick={incPage}
+        variant="clear"
+        disable={page === totalPages || totalPages === 0}
+      >
         next
       </Button>
     </div>
