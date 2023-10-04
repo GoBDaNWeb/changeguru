@@ -125,7 +125,6 @@ export const ConverterFields = observer(() => {
               value={WatchWant}
               placeholder="I Want"
               name="want"
-              isClearable={false}
             />
           );
         }}
