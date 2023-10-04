@@ -49,6 +49,10 @@
                         user-select: none
                         &:first-child
                             gap: 30px
+                            @media(max-width: $tab)
+                                position: sticky
+                                left: 0
+                                background: var(--white-color)
                         svg
                             path
                                 transition: var(--trs-500)
@@ -89,6 +93,11 @@
                         img
                             width: 30px
                             height: 30px
+                        &:first-child
+                            @media(max-width: $tab)
+                                position: sticky
+                                left: 0
+                                background: var(--white-color)
     .paginationWrapper
         display: flex
         justify-content: center

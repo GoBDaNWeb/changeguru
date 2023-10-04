@@ -3,6 +3,7 @@ import { FC, useMemo } from "react";
 import Select from "react-select";
 import { WindowedMenuList } from "react-windowed-select";
 import { FixedSizeList as List } from "react-window";
+import { FieldErrors } from "react-hook-form";
 type Option = {
   label: string;
   value: string;
@@ -16,7 +17,7 @@ interface ISelectProps {
   defaultValue?: Option;
   value?: any;
   onChange?: any;
-  isClearable?: boolean;
+  errors?: FieldErrors;
 }
 
 const MenuList = (props: any) => {
@@ -45,14 +46,15 @@ export const Selector: FC<ISelectProps> = ({
   defaultValue,
   value,
   onChange,
-  isClearable = true,
+  errors,
 }) => {
-  const selectClass = `select ${className ? className : ""}`;
-
+  const selectClass = `select ${className ? className : ""} ${
+    errors && errors[name] ? "error" : ""
+  }`;
   return (
     <Select
       components={{ MenuList }}
-      isClearable={isClearable}
+      isClearable={false}
       onChange={onChange}
       placeholder={placeholder}
       name={name}

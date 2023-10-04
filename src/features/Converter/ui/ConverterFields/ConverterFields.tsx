@@ -18,16 +18,18 @@ export const ConverterFields = observer(() => {
     watch,
     setValue,
     formState: { errors },
+    clearErrors,
   } = useForm<FieldValues>({
     defaultValues: {
-      want: {},
-      have: {},
+      want: "",
+      have: "",
       quality: "",
     },
   });
 
   const WatchHave = watch("have");
   const WatchWant = watch("want");
+  const WatchQuality = watch("quality");
 
   const { allCoins } = useGetAllCoins();
 
@@ -69,19 +71,26 @@ export const ConverterFields = observer(() => {
     if (WatchHave) {
       store.handleSetHave(WatchHave.label);
     }
+    clearErrors("have");
   }, [WatchHave]);
 
   useEffect(() => {
     if (WatchWant) {
       store.handleSetWant(WatchWant.label);
     }
+    clearErrors("want");
   }, [WatchWant]);
+
+  useEffect(() => {
+    clearErrors("quality");
+  }, [WatchQuality]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={s.fields}>
       <Controller
         control={control}
         name="have"
+        rules={{ required: true }}
         render={({ field: { onChange } }) => {
           const handleChange = (e: any) => {
             if (e) {
@@ -96,7 +105,7 @@ export const ConverterFields = observer(() => {
               value={WatchHave}
               placeholder="I Have"
               name="have"
-              // isClearable={false}
+              errors={errors}
             />
           );
         }}
@@ -104,6 +113,7 @@ export const ConverterFields = observer(() => {
       <Controller
         control={control}
         name="want"
+        rules={{ required: true }}
         render={({ field: { onChange } }) => {
           const handleChange = (e: any) => {
             if (e) {
@@ -118,6 +128,7 @@ export const ConverterFields = observer(() => {
               value={WatchWant}
               placeholder="I Want"
               name="want"
+              errors={errors}
             />
           );
         }}

@@ -32,6 +32,10 @@ export function useGetRates(props: IUseGetRatesProps) {
   };
 
   useEffect(() => {
+    if (!from || !to) {
+      setLoding(false);
+      return;
+    }
     handleGetRates();
   }, [converterStore.converterInfo.have, converterStore.converterInfo.want]);
 

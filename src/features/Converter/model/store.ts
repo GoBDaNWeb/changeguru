@@ -7,10 +7,10 @@ type ConverterInfo = {
 };
 
 class ConverterStore {
-  have = "BTC";
+  have = "";
   haveCount: any = 0;
-  want = "ETH";
-  converterInfo: ConverterInfo = { have: "BTC", haveCount: "0", want: "ETH" };
+  want = "";
+  converterInfo: ConverterInfo = { have: "", haveCount: "0", want: "" };
 
   constructor() {
     makeAutoObservable(this);

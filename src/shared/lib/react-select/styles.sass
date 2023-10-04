@@ -1,3 +1,14 @@
+.select.error
+    .select__control.select__control--is-focused
+        .select__value-container 
+            .select__placeholder
+                color: var(--gray-text-color)
+    .select__control
+        border-color: var(--error-color)
+        background: var(--error-bg-color)
+        .select__value-container 
+            .select__placeholder
+                color: var(--gray-light-color)
 .select
     .select__control.select__control--is-focused
         border-color: var(--emerald-color)
@@ -19,8 +30,8 @@
         transition: all var(--trs-500)
         &:hover
             border-color: var(--emerald-color)
-        .select__value-container.select__value-container--has-value
-            margin-left: 58px
+        // .select__value-container.select__value-container--has-value
+        //     // margin-left: 58px
         .select__value-container 
             padding: 0
             margin-left: 30px

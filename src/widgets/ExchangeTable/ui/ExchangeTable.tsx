@@ -117,7 +117,6 @@ export const ExchangeTable = observer(() => {
   useEffect(() => {
     setCurrentPage(1);
   }, [converterStore.have, converterStore.want]);
-  console.log("sortedExchanges", sortedExchanges);
 
   const itemsPerPage = 12;
 
