@@ -1,6 +1,8 @@
 import { FC } from "react";
-import { Button, Skeleton } from "shared/ui";
+
 import s from "./styles.module.sass";
+
+import { Button, Skeleton } from "shared/ui";
 
 interface ISelectorsListProps {
   isLoading: boolean;

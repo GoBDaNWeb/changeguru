@@ -1,1 +1,1 @@
-export * from "./useGetRates";
+export * from "./hooks";

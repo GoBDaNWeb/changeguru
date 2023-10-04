@@ -1,17 +1,17 @@
 import { useConverterStore } from "features/Converter";
 import { useEffect, useState } from "react";
 import { ratesApi } from "shared/api";
-import { Exchange } from "../ui/ExchangeTable";
+import { IExchange } from "../ui/ExchangeTable/ExchangeTable";
 
 interface IUseGetRatesProps {
   from: string;
   to: string;
 }
 
-export function useGetRates(props: IUseGetRatesProps) {
+export const useGetRates = (props: IUseGetRatesProps) => {
   const { from, to } = props;
 
-  const [exchanges, setExchanges] = useState<Exchange[]>([]);
+  const [exchanges, setExchanges] = useState<IExchange[]>([]);
   const [isLoading, setLoding] = useState<boolean>(true);
 
   const converterStore = useConverterStore();
@@ -43,4 +43,4 @@ export function useGetRates(props: IUseGetRatesProps) {
     exchanges,
     isLoading,
   };
-}
+};

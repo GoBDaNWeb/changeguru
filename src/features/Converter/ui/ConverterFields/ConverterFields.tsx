@@ -47,6 +47,8 @@ export const ConverterFields = observer(() => {
       haveCount: data.quality,
     };
     store.handleSetConverterInfo(info);
+    const table = document.querySelector("#table");
+    if (table) table.scrollIntoView();
   };
 
   useEffect(() => {

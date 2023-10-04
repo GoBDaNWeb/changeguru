@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { ExchangeFeatures } from "widgets/ExchangeTable/ui/ExchangeTable";
+import { ExchangeFeatures } from "widgets/ExchangeTable/ui/ExchangeTable/ExchangeTable";
 
 class TableFiltersInfo {
   filters: ExchangeFeatures = {

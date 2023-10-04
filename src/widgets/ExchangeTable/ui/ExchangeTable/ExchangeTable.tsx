@@ -3,13 +3,14 @@ import { observer } from "mobx-react-lite";
 
 import s from "./styles.module.sass";
 
-import { OutlineHeartIcon, Pagination, SortingIcon, Title } from "shared/ui";
+import { Pagination, SortingIcon, Title } from "shared/ui";
 import { TableFilters, useTableFiltersStore } from "features/TableFilters";
 import { useConverterStore } from "features/Converter";
-import { useGetRates } from "../model";
-import { PulseLoader } from "react-spinners";
+import { useGetRates } from "../../model";
+import { TableBody } from "../TableBody/TableBody";
+import { TableHead } from "../TableHead/TableHead";
 
-export interface Exchange {
+export interface IExchange {
   name: string;
   url: string;
   logo: string;
@@ -32,14 +33,13 @@ type Info = {
   volume: number;
 };
 
+export type SortBy = "default" | "recieve" | "volume" | "liqudity";
+type SortType = "asc" | "desc";
+
 export const ExchangeTable = observer(() => {
-  const [sortBy, setSortBy] = useState<
-    "default" | "recieve" | "volume" | "liqudity"
-  >("default");
-  const [sortType, setSortType] = useState<"asc" | "desc">("desc");
-  const [prevSort, setPrevSort] = useState<
-    "default" | "recieve" | "volume" | "liqudity"
-  >("default");
+  const [sortBy, setSortBy] = useState<SortBy>("default");
+  const [sortType, setSortType] = useState<SortType>("desc");
+  const [prevSort, setPrevSort] = useState<SortBy>("default");
   const [currentPage, setCurrentPage] = useState(1);
 
   const converterStore = useConverterStore();
@@ -66,13 +66,13 @@ export const ExchangeTable = observer(() => {
     filteredExchanges?.length > 0 ? filteredExchanges : exchanges;
 
   const getSortedExchanges = (
-    exchanges: Exchange[],
+    exchanges: IExchange[],
     sortBy: string,
     sortType: string
-  ): Exchange[] => {
+  ): IExchange[] => {
     if (!exchanges) return [];
 
-    const sortFunctions: Record<string, () => Exchange[]> = {
+    const sortFunctions: Record<string, () => IExchange[]> = {
       default: () => exchanges,
       recieve: () =>
         sortType === "desc"
@@ -104,7 +104,7 @@ export const ExchangeTable = observer(() => {
     return getSortedExchanges(filteredExchanges, sortBy, sortType);
   }, [filtersStore.search, finalExchange, sortBy, sortType]);
 
-  const handleSort = (sort: "default" | "recieve" | "volume" | "liqudity") => {
+  const handleSort = (sort: SortBy) => {
     setSortBy(sort);
     if (sort === prevSort) {
       setSortType(sortType === "desc" ? "asc" : "desc");
@@ -126,92 +126,15 @@ export const ExchangeTable = observer(() => {
   const currentItems = sortedExchanges.slice(startIndex, endIndex);
 
   return (
-    <div className={`${s.exchangeTable} container`}>
+    <div id="table" className={`${s.exchangeTable} container`}>
       <Title variant="h2">Exchange rates</Title>
       <div className={s.filtersWrapper}>
         <TableFilters />
       </div>
       <div className={s.tableWrapper}>
         <table>
-          <thead>
-            <tr>
-              <th>
-                <span>#</span> Exchange
-              </th>
-              <th>I Have</th>
-              <th
-                className={`${s.sort} ${sortBy === "recieve" ? s.active : ""}`}
-                onClick={() => handleSort("recieve")}
-              >
-                <SortingIcon /> I will Recieve
-              </th>
-              <th
-                className={`${s.sort} ${sortBy === "volume" ? s.active : ""}`}
-                onClick={() => handleSort("volume")}
-              >
-                <SortingIcon /> 24H Volume
-              </th>
-              <th
-                className={`${s.sort} ${sortBy === "liqudity" ? s.active : ""}`}
-                onClick={() => handleSort("liqudity")}
-              >
-                <SortingIcon /> Total Liqudity
-              </th>
-              <th>KYC Level</th>
-              <th>Ratings</th>
-              <th>Popularity</th>
-              <th>Vote</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading ? (
-              <tr className={s.loader}>
-                <PulseLoader
-                  color="#21B1AB"
-                  loading={isLoading}
-                  size={20}
-                  aria-label="Loading Spinner"
-                  data-testid="loader"
-                />
-              </tr>
-            ) : (
-              <>
-                {!sortedExchanges || sortedExchanges.length === 0 ? (
-                  <tr className={s.empty}>
-                    <td>Exchanges list is empty</td>
-                  </tr>
-                ) : (
-                  <>
-                    {currentItems.map((item) => (
-                      <tr onClick={() => window.open(item.url)} key={item.name}>
-                        <td>
-                          <img src={item.logo} alt="exchange" />
-                          {item.name}
-                        </td>
-                        <td>
-                          {converterStore.converterInfo.haveCount}{" "}
-                          {item.info.from}
-                        </td>
-                        <td>
-                          {item.info.price} {item.info.to}
-                        </td>
-                        <td>
-                          {item.info.volume} {item.info.to}
-                        </td>
-                        <td>{item.total_liquidity} $</td>
-                        <td>{item.kyc}</td>
-                        <td>{item.ratings}</td>
-                        <td>{item.popularity}</td>
-                        <td>
-                          <OutlineHeartIcon />
-                        </td>
-                      </tr>
-                    ))}
-                  </>
-                )}
-              </>
-            )}
-          </tbody>
+          <TableHead sortBy={sortBy} handleSort={handleSort} />
+          <TableBody isLoading={isLoading} currentItems={currentItems} />
         </table>
       </div>
       <div className={s.paginationWrapper}>
