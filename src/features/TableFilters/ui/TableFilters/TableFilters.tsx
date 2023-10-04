@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import { observer } from "mobx-react-lite";
 
 import s from "./styles.module.sass";
 
@@ -7,11 +8,12 @@ import { Button, FiltersIcon, Input, SearchIcon } from "shared/ui";
 import { Filters } from "../Filters/Filters";
 import { useDebounce } from "shared/lib";
 import { coinsApi } from "shared/api";
+import { useTableFiltersStore } from "features/TableFilters";
 
-export const TableFilters = () => {
-  const [allCoins, setAllCoins] = useState<string[]>([]);
-  const [searchedCoins, setSearchedCoins] = useState<string[] | null>(null);
+export const TableFilters = observer(() => {
   const [filtersIsOpen, setOpenFilter] = useState(false);
+
+  const store = useTableFiltersStore();
 
   const {
     register,
@@ -27,26 +29,9 @@ export const TableFilters = () => {
 
   const debounced = useDebounce(WatchSearch);
 
-  const handleGetTopCoins = async () => {
-    const response = await coinsApi.getAllCoins();
-    setAllCoins(response.data);
-  };
-
   useEffect(() => {
-    if (!debounced) {
-      setSearchedCoins(null);
-      return;
-    }
-
-    const search = allCoins.filter((coin) => {
-      return coin.toLowerCase().includes(debounced.toLowerCase());
-    });
-    setSearchedCoins(search);
+    store.handleSearch(debounced);
   }, [debounced]);
-
-  useEffect(() => {
-    handleGetTopCoins();
-  }, []);
 
   const filterBtnClass = `${s.fiterBtn} ${filtersIsOpen ? s.active : ""}`;
 
@@ -61,28 +46,17 @@ export const TableFilters = () => {
           <FiltersIcon />
           <span>Advanced Filters</span>
         </Button>
-        <div className={s.searchWrapper}>
-          <Input
-            id="search"
-            register={register}
-            placeholder="search"
-            className={s.search}
-            icon={<SearchIcon />}
-          />
-          {searchedCoins ? (
-            <div className={s.dropdownWrapper}>
-              <div className={s.dropdown}>
-                {searchedCoins.map((coin) => (
-                  <span key={coin}>{coin}</span>
-                ))}
-              </div>
-            </div>
-          ) : null}
-        </div>
+        <Input
+          id="search"
+          register={register}
+          placeholder="search"
+          className={s.search}
+          icon={<SearchIcon />}
+        />
       </div>
       <div className={s.filtersContent}>
         <Filters handleOpen={setOpenFilter} isOpen={filtersIsOpen} />
       </div>
     </div>
   );
-};
+});

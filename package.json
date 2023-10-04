@@ -22,6 +22,8 @@
     "react-select": "^5.7.5",
     "react-spinners": "^0.13.8",
     "react-tabs": "^6.0.2",
+    "react-window": "^1.8.9",
+    "react-windowed-select": "^5.1.0",
     "sass": "^1.68.0",
     "swiper": "^10.3.0",
     "typescript": "^4.9.5",

@@ -1,24 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { observer } from "mobx-react-lite";
-import InputMask from "react-input-mask";
 
-import { coinsApi } from "shared/api";
-import { converterData } from "../../config";
-import { useConverterStore } from "features/Converter";
+import { useConverterStore, useGetAllCoins } from "features/Converter";
 
 import s from "./styles.module.sass";
 
 import { Button, Input, Selector } from "shared/ui";
 import { Controller, FieldValues, useForm } from "react-hook-form";
-
-type TopCoins = {
-  value: string;
-  label: string;
-};
+import WindowedSelect from "react-windowed-select";
 
 export const ConverterFields = observer(() => {
-  const [topCoins, setTopCoins] = useState<TopCoins[]>([]);
-
   const store = useConverterStore();
 
   const {
@@ -39,13 +30,20 @@ export const ConverterFields = observer(() => {
   const WatchHave = watch("have");
   const WatchWant = watch("want");
 
-  const handleGetTopCoins = async () => {
-    const response = await coinsApi.getTopCoins();
-    const options = response.data.map((option: any) => {
-      return { value: option.toLowerCase(), label: option };
-    });
-    setTopCoins(options);
-  };
+  const { allCoins } = useGetAllCoins();
+
+  const options = useMemo(() => {
+    return allCoins.map((option) => ({
+      value: option.toLowerCase(),
+      label: option,
+    }));
+  }, [allCoins]);
+
+  // const options = useMemo(() => {
+  //   return allCoins.map((option) => {
+  //     return { value: option.toLowerCase(), label: option };
+  //   });
+  // }, [allCoins]);
 
   const onSubmit = (data: any) => {
     const info = {
@@ -55,10 +53,6 @@ export const ConverterFields = observer(() => {
     };
     store.handleSetConverterInfo(info);
   };
-
-  useEffect(() => {
-    handleGetTopCoins();
-  }, []);
 
   useEffect(() => {
     if (store.have) {
@@ -97,16 +91,19 @@ export const ConverterFields = observer(() => {
         name="have"
         render={({ field: { onChange } }) => {
           const handleChange = (e: any) => {
-            if (e.label === store.want) return;
-            onChange(e);
+            if (e) {
+              if (e.label === store.want) return;
+              onChange(e);
+            }
           };
           return (
             <Selector
-              options={topCoins}
+              options={options}
               onChange={handleChange}
               value={WatchHave}
               placeholder="I Have"
               name="have"
+              // isClearable={false}
             />
           );
         }}
@@ -116,16 +113,19 @@ export const ConverterFields = observer(() => {
         name="want"
         render={({ field: { onChange } }) => {
           const handleChange = (e: any) => {
-            if (e.label === store.have) return;
-            onChange(e);
+            if (e) {
+              if (e.label === store.have) return;
+              onChange(e);
+            }
           };
           return (
             <Selector
-              options={topCoins}
+              options={options}
               onChange={handleChange}
               value={WatchWant}
               placeholder="I Want"
               name="want"
+              isClearable={false}
             />
           );
         }}
@@ -133,7 +133,7 @@ export const ConverterFields = observer(() => {
       <Controller
         control={control}
         name="quality"
-        rules={{ required: true, pattern: /^\d+$/ }}
+        rules={{ required: true, pattern: /^[0-9.]+$/ }}
         render={({ field: { onChange, value } }) => {
           return (
             <Input
@@ -142,7 +142,7 @@ export const ConverterFields = observer(() => {
               register={register}
               required
               placeholder="Quality"
-              value={value.replace(/[^0-9]/g, "")}
+              value={value.replace(/[^0-9.]/g, "")}
             />
           );
         }}

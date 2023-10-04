@@ -1,15 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { observer } from "mobx-react-lite";
 
-import { ratesApi } from "shared/api";
-
 import s from "./styles.module.sass";
 
 import { OutlineHeartIcon, SortingIcon, Title } from "shared/ui";
 import { TableFilters, useTableFiltersStore } from "features/TableFilters";
 import { useConverterStore } from "features/Converter";
 import { useGetRates } from "../model";
-import { ClipLoader, PulseLoader } from "react-spinners";
+import { PulseLoader } from "react-spinners";
 
 export interface Exchange {
   name: string;
@@ -35,7 +33,11 @@ type Info = {
 };
 
 export const ExchangeTable = observer(() => {
-  const [sortBy, setSort] = useState<
+  const [sortBy, setSortBy] = useState<
+    "default" | "recieve" | "volume" | "liqudity"
+  >("default");
+  const [sortType, setSortType] = useState<"asc" | "desc">("desc");
+  const [prevSort, setPrevSort] = useState<
     "default" | "recieve" | "volume" | "liqudity"
   >("default");
 
@@ -59,23 +61,61 @@ export const ExchangeTable = observer(() => {
     });
   }, [exchanges, filtersStore.filters]);
 
+  // useEffect(() => {
+  //   setSortType("desc");
+  // }, [sortBy]);
+
   const finalExchange =
     filteredExchanges?.length > 0 ? filteredExchanges : exchanges;
 
+  const getSortedExchanges = (
+    exchanges: Exchange[],
+    sortBy: string,
+    sortType: string
+  ): Exchange[] => {
+    if (!exchanges) return [];
+
+    const sortFunctions: Record<string, () => Exchange[]> = {
+      default: () => exchanges,
+      recieve: () =>
+        sortType === "desc"
+          ? exchanges.sort((a, b) => b.info.price - a.info.price)
+          : exchanges.sort((a, b) => a.info.price - b.info.price),
+      volume: () =>
+        sortType === "desc"
+          ? exchanges.sort((a, b) => b.info.volume - a.info.volume)
+          : exchanges.sort((a, b) => a.info.volume - b.info.volume),
+      liqudity: () =>
+        exchanges.sort(
+          (a: any, b: any) => b.total_liquidity - a.total_liquidity
+        ),
+    };
+
+    return sortFunctions[sortBy] ? sortFunctions[sortBy]() : [];
+  };
+
   const sortedExchanges = useMemo(() => {
     if (!finalExchange) return [];
-    if (sortBy === "default") {
-      return finalExchange;
-    } else if (sortBy === "recieve") {
-      return finalExchange.sort((a, b) => b.info.price - a.info.price);
-    } else if (sortBy === "volume") {
-      return finalExchange.sort((a, b) => b.info.volume - a.info.volume);
-    } else if (sortBy === "liqudity") {
-      return finalExchange.sort(
-        (a: any, b: any) => b.total_liquidity - a.total_liquidity
-      );
+    const { search } = filtersStore;
+    const filteredExchanges =
+      search.length > 0
+        ? finalExchange.filter((exchange) =>
+            exchange.name.toLowerCase().includes(search.toLowerCase())
+          )
+        : finalExchange;
+
+    return getSortedExchanges(filteredExchanges, sortBy, sortType);
+  }, [filtersStore.search, finalExchange, sortBy, sortType]);
+
+  const handleSort = (sort: "default" | "recieve" | "volume" | "liqudity") => {
+    setSortBy(sort);
+    if (sort === prevSort) {
+      setSortType(sortType === "desc" ? "asc" : "desc");
+    } else {
+      setSortType("desc");
     }
-  }, [finalExchange, sortBy]);
+    setPrevSort(sort);
+  };
 
   return (
     <div className={`${s.exchangeTable} container`}>
@@ -93,19 +133,19 @@ export const ExchangeTable = observer(() => {
               <th>I Have</th>
               <th
                 className={`${s.sort} ${sortBy === "recieve" ? s.active : ""}`}
-                onClick={() => setSort("recieve")}
+                onClick={() => handleSort("recieve")}
               >
                 <SortingIcon /> I will Recieve
               </th>
               <th
                 className={`${s.sort} ${sortBy === "volume" ? s.active : ""}`}
-                onClick={() => setSort("volume")}
+                onClick={() => handleSort("volume")}
               >
                 <SortingIcon /> 24H Volume
               </th>
               <th
                 className={`${s.sort} ${sortBy === "liqudity" ? s.active : ""}`}
-                onClick={() => setSort("liqudity")}
+                onClick={() => handleSort("liqudity")}
               >
                 <SortingIcon /> Total Liqudity
               </th>

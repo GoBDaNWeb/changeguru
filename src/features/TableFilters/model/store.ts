@@ -22,12 +22,18 @@ class TableFiltersInfo {
     tf_limitorders: false,
   };
 
+  search = "";
+
   constructor() {
     makeAutoObservable(this);
   }
 
   handleChangeFilters(filters: any) {
     this.filters = filters;
+  }
+
+  handleSearch(text: string) {
+    this.search = text;
   }
 }
 

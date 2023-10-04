@@ -9,32 +9,10 @@
         @media(max-width: $tab-sm)
             flex-direction: column
             gap: 20px
-        .searchWrapper
-            position: relative
-            z-index: var(--z-content)
-            .search
-                width: 522px
-                @media(max-width: $tab-sm)
-                    width: 100%
-            .dropdownWrapper
-                padding: 70px 20px 20px
-                background: var(--white-color)
-                border-radius: var(--rounded-lg)
-                top: 0
-                position: absolute
+        .search
+            width: 522px
+            @media(max-width: $tab-sm)
                 width: 100%
-                box-sizing: border-box
-                box-shadow: var(--shadow)
-                .dropdown
-                    max-height: 300px
-                    overflow: auto
-                    display: flex
-                    flex-direction: column
-                    gap: 10px
-                    scrollbar-width: thin
-                    scrollbar-color: #daebf5 #ffffff
-                    &::-webkit-scrollbar
-                        width: 10px
         .fiterBtn.active
             color: var(--emerald-color)
             svg

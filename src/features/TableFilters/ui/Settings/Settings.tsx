@@ -37,7 +37,7 @@ export const Settings: FC<ISettingsProps> = ({ handleOpen, reset }) => {
 
       <div className={s.bottom}>
         <div className={s.mainBtns}>
-          <Button onClick={() => {}} type="submit">
+          <Button onClick={() => handleOpen(false)} type="submit">
             apply
           </Button>
           <Button onClick={reset} variant="additional">

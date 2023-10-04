@@ -37,3 +37,35 @@ export const useGetTopCoins = () => {
     isLoading,
   };
 };
+
+type AllCoins = {
+  value: string;
+  label: string;
+};
+
+export const useGetAllCoins = () => {
+  const [allCoins, setAllCoins] = useState<string[]>([]);
+  const [isLoading, setLoading] = useState(true);
+
+  const handleGetAllCoins = async () => {
+    setLoading(true);
+    try {
+      const { data } = await coinsApi.getAllCoins();
+
+      setAllCoins(data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    handleGetAllCoins();
+  }, []);
+
+  return {
+    allCoins,
+    isLoading,
+  };
+};
