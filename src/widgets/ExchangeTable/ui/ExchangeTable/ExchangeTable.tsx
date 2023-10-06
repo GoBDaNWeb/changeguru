@@ -9,6 +9,8 @@ import { useConverterStore } from "features/Converter";
 import { useGetRates } from "../../model";
 import { TableBody } from "../TableBody/TableBody";
 import { TableHead } from "../TableHead/TableHead";
+import { PulseLoader } from "react-spinners";
+import { table } from "shared/config";
 
 export interface IExchange {
   name: string;
@@ -137,12 +139,34 @@ export const ExchangeTable = observer(() => {
           <TableBody isLoading={isLoading} currentItems={currentItems} />
         </table>
       </div>
+      <div className={s.tableInfo}>
+        {isLoading ? (
+          <div className={s.loader}>
+            <PulseLoader
+              color="#21B1AB"
+              loading={isLoading}
+              size={18}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </div>
+        ) : (
+          <>
+            {!currentItems || currentItems.length === 0 ? (
+              <div className={s.empty}>Exchanges list is empty</div>
+            ) : null}
+          </>
+        )}
+      </div>
       <div className={s.paginationWrapper}>
         <Pagination
           page={currentPage}
           totalPages={totalPages}
           decPage={() => setCurrentPage((prev) => prev - 1)}
-          incPage={() => setCurrentPage((prev) => prev + 1)}
+          incPage={() => {
+            setCurrentPage((prev) => prev + 1);
+            if (table) table.scrollIntoView();
+          }}
         />
       </div>
     </div>

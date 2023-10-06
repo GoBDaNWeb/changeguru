@@ -16,10 +16,10 @@ export const TableRow: FC<ItableRowProps> = observer(
 
     return (
       <tr>
-        <td onClick={() => window.open(item.url)}>
+        <td>
           <img src={item.logo} alt="exchange" />
-          {item.name}
         </td>
+        <td onClick={() => window.open(item.url)}>{item.name}</td>
         <td onClick={() => window.open(item.url)}>
           {converterStore.converterInfo.haveCount} {item.info.from}
         </td>

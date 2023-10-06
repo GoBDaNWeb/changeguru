@@ -13,9 +13,8 @@ export const TableHead: FC<ITableHeadeProps> = ({ sortBy, handleSort }) => {
   return (
     <thead>
       <tr>
-        <th>
-          <span>#</span> Exchange
-        </th>
+        <th>#</th>
+        <th>Exchange</th>
         <th>I Have</th>
         <th
           className={`${s.sort} ${sortBy === "recieve" ? s.active : ""}`}

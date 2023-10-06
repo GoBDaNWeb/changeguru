@@ -25,34 +25,16 @@ export const TableBody: FC<ITableBodyProps> = ({ isLoading, currentItems }) => {
 
   return (
     <tbody>
-      {isLoading ? (
-        <tr className={s.loader}>
-          <PulseLoader
-            color="#21B1AB"
-            loading={isLoading}
-            size={18}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-        </tr>
-      ) : (
+      {isLoading ? null : (
         <>
-          {!currentItems || currentItems.length === 0 ? (
-            <tr className={s.empty}>
-              <td>Exchanges list is empty</td>
-            </tr>
-          ) : (
-            <>
-              {currentItems.map((item, index) => (
-                <TableRow
-                  key={item.name}
-                  item={item}
-                  handleAddFavorite={() => handleAddFavorite(index)}
-                  isFavorite={favorites.includes(index)}
-                />
-              ))}
-            </>
-          )}
+          {currentItems.map((item, index) => (
+            <TableRow
+              key={item.name}
+              item={item}
+              handleAddFavorite={() => handleAddFavorite(index)}
+              isFavorite={favorites.includes(index)}
+            />
+          ))}
         </>
       )}
     </tbody>
