@@ -7,7 +7,6 @@ import { useConverterStore, useGetAllCoins } from "features/Converter";
 import s from "./styles.module.sass";
 
 import { Button, Input, Selector } from "shared/ui";
-import { table } from "shared/config";
 
 export const ConverterFields = observer(() => {
   const store = useConverterStore();
@@ -48,6 +47,7 @@ export const ConverterFields = observer(() => {
       haveCount: data.quality,
     };
     store.handleSetConverterInfo(info);
+    const table = document.querySelector("#table");
     if (table) table.scrollIntoView();
   };
 

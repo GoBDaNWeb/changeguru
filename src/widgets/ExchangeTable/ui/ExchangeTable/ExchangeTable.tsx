@@ -165,6 +165,7 @@ export const ExchangeTable = observer(() => {
           decPage={() => setCurrentPage((prev) => prev - 1)}
           incPage={() => {
             setCurrentPage((prev) => prev + 1);
+            const table = document.querySelector("#table");
             if (table) table.scrollIntoView();
           }}
         />
