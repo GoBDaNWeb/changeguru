@@ -28,6 +28,7 @@ const MenuList = (props: any) => {
   return (
     //@ts-ignore
     <List
+      style={{ zIndex: "100" }}
       height={maxHeight}
       itemCount={children.length}
       itemSize={40}
