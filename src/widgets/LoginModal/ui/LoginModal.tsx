@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
 
-import { useModalStore } from "entities/Modal/model";
+import { useModalStore } from "entities/Modal";
 
 import s from "./styles.module.sass";
 

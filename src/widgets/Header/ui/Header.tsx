@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
-import { navigationList } from "../config";
+import { navigationList } from "shared/config";
 import { PATH_PAGE } from "shared/config";
-import { useModalStore } from "entities/Modal/model";
+import { useModalStore } from "entities/Modal";
 
 import s from "./styles.module.sass";
 
 import { Button } from "shared/ui";
 import { BurgerIcon } from "shared/ui/BurgerIcon";
+import { Burger } from "features/Burger";
+import { Logo } from "entities/Logo";
 
 export const Header = observer(() => {
   const [active, setActive] = useState(false);
 
-  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const { handleOpenLoginModal } = useModalStore();
@@ -26,17 +27,6 @@ export const Header = observer(() => {
       } else {
         setActive(false);
       }
-    }
-  };
-
-  const handleClickLogo = () => {
-    if (pathname === "/") {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    } else {
-      navigate(PATH_PAGE.root);
     }
   };
 
@@ -53,10 +43,7 @@ export const Header = observer(() => {
 
   return (
     <header className={headerClass}>
-      <div onClick={handleClickLogo} className={s.logoWrapper}>
-        <img src="logo.png" alt="logo" className={s.logo} />
-        <img src="logo-min.png" alt="logo" className={s.logoMin} />
-      </div>
+      <Logo />
       <nav className={s.navigation}>
         {navigationList.map((nav) => (
           <NavLink key={nav.link} to={nav.link} className={s.navLink}>
@@ -78,9 +65,7 @@ export const Header = observer(() => {
         >
           Register
         </Button>
-        <Button onClick={() => {}} className={s.burger} variant="clear">
-          <BurgerIcon />
-        </Button>
+        <Burger />
       </div>
     </header>
   );

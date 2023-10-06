@@ -1,3 +1,5 @@
+import { PATH_PAGE } from "shared/config";
+
 export const API_URL = "https://api.changeguru.io/api";
 export const countryList = [
   {
@@ -21,6 +23,21 @@ export const genderList = [
   {
     label: "Female",
     value: "female",
+  },
+];
+
+export const navigationList = [
+  {
+    title: "Home",
+    link: PATH_PAGE.root,
+  },
+  {
+    title: "About us",
+    link: PATH_PAGE.about,
+  },
+  {
+    title: "FAQ",
+    link: PATH_PAGE.faq,
   },
 ];
 

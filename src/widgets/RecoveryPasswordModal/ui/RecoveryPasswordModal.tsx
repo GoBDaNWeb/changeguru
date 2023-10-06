@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 
-import { useModalStore } from "entities/Modal";
-
 import s from "./styles.module.sass";
 
 import { Backdrop, Button, Input, ModalWrapper } from "shared/ui";
 import { FieldValues, useForm } from "react-hook-form";
+import { useModalStore } from "entities/Modal";
 
 export const RecoveryPasswordModal = observer(() => {
   const [showModal, setShowModal] = useState(false);
