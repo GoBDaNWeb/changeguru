@@ -1,81 +1,139 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { changePasswordType } from "shared/lib";
 
 import s from "./styles.module.sass";
 
 import { Button, EyeIcon, Input } from "shared/ui";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { userApi } from "shared/api";
 
 export const ChangePassword = () => {
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const newPasswordRef = useRef<HTMLInputElement>(null);
-  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+  const [oldPasswordType, setOldPasswordType] = useState("password");
+  const [passwordType, setPasswordType] = useState("password");
+  const [passwordRepeatType, setPasswordRepeatType] = useState("password");
+
+  const changeOldPasswordType = () => {
+    setOldPasswordType(oldPasswordType === "password" ? "text" : "password");
+  };
+  const changePasswordType = () => {
+    setPasswordType(passwordType === "password" ? "text" : "password");
+  };
+  const changePasswordRepeatType = () => {
+    setPasswordRepeatType(
+      passwordRepeatType === "password" ? "text" : "password"
+    );
+  };
+
+  const notify = () =>
+    toast.success("the information has been changed", {
+      position: "bottom-right",
+    });
 
   const {
+    handleSubmit,
     register,
+    setError,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      oldPassword: "",
-      newPassword: "",
-      confirmPassword: "",
+      old_password: "",
+      new_password: "",
+      new_password_repeat: "",
     },
   });
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log("data", data);
+    const { old_password, new_password, new_password_repeat } = data;
+
+    try {
+      const newPaswordData = {
+        old_password,
+        new_password,
+        new_password_repeat,
+      };
+
+      if (new_password !== new_password_repeat) {
+        setError("new_password", {
+          type: "manual",
+          message: "erroe message",
+        });
+        setError("new_password_repeat", {
+          type: "manual",
+          message: "erroe message",
+        });
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+        return;
+      }
+      if (localStorage.getItem("token")) {
+        await userApi.updateUserPassword(
+          newPaswordData,
+          localStorage.getItem("token")
+        );
+        notify();
+      }
+    } catch (e) {
+      console.error("change password error", e);
+    }
+  };
 
   return (
     <div className={s.changePassword}>
       <span className={s.title}>Change Password</span>
-      <form className={s.form}>
+      <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
         <Input
-          id="old-password"
+          id="old_password"
           register={register}
+          required
+          minLength={8}
+          errors={errors}
           placeholder="Old Passworld"
-          type="password"
-          // ref={passwordRef}
+          type={oldPasswordType}
           icon={
-            <Button
-              onClick={() => changePasswordType(passwordRef)}
-              variant="clear"
-            >
+            <Button onClick={() => changeOldPasswordType()} variant="clear">
               <EyeIcon />
             </Button>
           }
         />
         <Input
-          id="new-password"
+          id="new_password"
           register={register}
+          required
+          minLength={8}
+          errors={errors}
           placeholder="New Passworld"
-          type="password"
-          ref={newPasswordRef}
+          type={passwordType}
           icon={
-            <Button
-              onClick={() => changePasswordType(newPasswordRef)}
-              variant="clear"
-            >
+            <Button onClick={() => changePasswordType()} variant="clear">
               <EyeIcon />
             </Button>
           }
         />
         <Input
-          id="confirm-password"
+          id="new_password_repeat"
           register={register}
+          required
+          minLength={8}
+          errors={errors}
           placeholder="Confirm Passworld"
-          type="password"
-          ref={confirmPasswordRef}
+          type={passwordRepeatType}
           icon={
-            <Button
-              onClick={() => changePasswordType(confirmPasswordRef)}
-              variant="clear"
-            >
+            <Button onClick={() => changePasswordRepeatType()} variant="clear">
               <EyeIcon />
             </Button>
           }
         />
-        <Button onClick={() => {}} className={s.btn}>
+        <Button onClick={() => {}} type="submit" className={s.btn}>
           Change Passworld
         </Button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import {
   ReactNode,
   forwardRef,
 } from "react";
+import InputMask from "react-input-mask";
 
 import s from "./styles.module.sass";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
@@ -22,6 +23,9 @@ interface IInutProps {
   errors?: FieldErrors;
   onChange?: () => void;
   value?: string;
+  isPhone?: boolean;
+  pattern?: RegExp;
+  minLength?: number;
 }
 
 export const Input: FC<IInutProps> = forwardRef((props, ref) => {
@@ -33,8 +37,11 @@ export const Input: FC<IInutProps> = forwardRef((props, ref) => {
     register,
     id,
     required,
+    pattern = /.*/,
     errors,
     value,
+    isPhone,
+    minLength = 0,
   } = props;
 
   const inputClassWrapper = `${s.inputLabelWrapper} ${
@@ -42,15 +49,30 @@ export const Input: FC<IInutProps> = forwardRef((props, ref) => {
   } ${errors && errors[id] ? s.error : ""}`;
 
   return (
-    <label className={inputClassWrapper}>
-      <input
-        type={type}
-        {...register(id, { required })}
-        className={s.input}
-        placeholder={placeholder}
-        value={value}
-      />
-      <div className={s.icon}>{icon ? icon : null}</div>
-    </label>
+    <>
+      {isPhone ? (
+        <label className={inputClassWrapper}>
+          <InputMask
+            className={s.input}
+            mask="+9 (999) 999-9999"
+            id={id}
+            placeholder={placeholder}
+            {...register(id, { required })}
+          />
+          <div className={s.icon}>{icon ? icon : null}</div>
+        </label>
+      ) : (
+        <label className={inputClassWrapper}>
+          <input
+            type={type}
+            {...register(id, { required, pattern, minLength })}
+            className={s.input}
+            placeholder={placeholder}
+            value={value}
+          />
+          <div className={s.icon}>{icon ? icon : null}</div>
+        </label>
+      )}
+    </>
   );
 });

@@ -71,7 +71,7 @@ export const RegisterPage = () => {
               {registerStep === 0 ? (
                 <ExchangeRegister onChangeStep={() => setRegisterStep(1)} />
               ) : (
-                <AdvancedSetting onSubmit={() => setCompleted(true)} />
+                <AdvancedSetting onComplite={() => setCompleted(true)} />
               )}
             </TabPanel>
           </Tabs>

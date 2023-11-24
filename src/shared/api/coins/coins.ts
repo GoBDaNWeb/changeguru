@@ -1,6 +1,6 @@
 import { apiInstance } from "../base";
 
-const BASE_URL = "/coins";
+const BASE_URL = "api/coins";
 
 export type TopCoins = {
   success: boolean;

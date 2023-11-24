@@ -1,6 +1,6 @@
 import { PATH_PAGE } from "shared/config";
 
-export const API_URL = "https://api.changeguru.io/api";
+export const API_URL = "https://api.changeguru.io";
 export const countryList = [
   {
     label: "Russia",

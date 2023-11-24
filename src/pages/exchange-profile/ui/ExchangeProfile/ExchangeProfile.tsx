@@ -16,6 +16,13 @@ export const ExchangeProfilePage = () => {
   const [tab, setTab] = useState(0);
 
   const tabContent = () => {
+    // const profileTabs = {
+    //   0: <BasicInfo />,
+    //   1: <ContactDetials />,
+    //   2: <AdvancedProfile />,
+    //   3: <ChangePassword />,
+    // };
+
     if (tab === 0) {
       return <BasicInfo />;
     } else if (tab === 1) {
@@ -25,6 +32,8 @@ export const ExchangeProfilePage = () => {
     } else if (tab === 3) {
       return <ChangePassword />;
     }
+
+    // return profileTabs[tabIntex];
   };
 
   return (

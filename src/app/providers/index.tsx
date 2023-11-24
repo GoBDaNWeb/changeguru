@@ -5,6 +5,8 @@ import { ModalProvider } from "entities/Modal";
 import { MenuProvider } from "features/Burger";
 import { ConverterProvider } from "features/Converter";
 import { TableFiltersProvider } from "features/TableFilters";
+import { RegisterExchangeProvider } from "features/RegisterExchange";
+import { UserProvider } from "entities/User";
 
 const Provider = () => {
   return (
@@ -12,11 +14,15 @@ const Provider = () => {
       <ConverterProvider>
         <MenuProvider>
           <ModalProvider>
-            <TableFiltersProvider>
-              <ToTopProvider>
-                <Router />
-              </ToTopProvider>
-            </TableFiltersProvider>
+            <UserProvider>
+              <RegisterExchangeProvider>
+                <TableFiltersProvider>
+                  <ToTopProvider>
+                    <Router />
+                  </ToTopProvider>
+                </TableFiltersProvider>
+              </RegisterExchangeProvider>
+            </UserProvider>
           </ModalProvider>
         </MenuProvider>
       </ConverterProvider>

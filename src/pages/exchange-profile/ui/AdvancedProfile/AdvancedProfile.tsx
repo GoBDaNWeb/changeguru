@@ -6,7 +6,7 @@ export const AdvancedProfile = () => {
   return (
     <div className={s.advancedProfile}>
       <span className={s.title}>Advanced Profile</span>
-      <AdvancedSetting onSubmit={() => {}} />
+      <AdvancedSetting onComplite={() => {}} />
     </div>
   );
 };

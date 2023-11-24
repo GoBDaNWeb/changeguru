@@ -24,6 +24,20 @@ class ApiInstance {
       throw error;
     }
   }
+  async post<T>(
+    endpoint: string,
+    options: AxiosRequestConfig = {}
+  ): Promise<T> {
+    try {
+      const response: AxiosResponse<T> = await this.axios.post(
+        endpoint,
+        options
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export const apiInstance = new ApiInstance();

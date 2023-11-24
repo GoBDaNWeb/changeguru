@@ -33,3 +33,4 @@ export * from "./SearchIcon";
 export * from "./CalendarIcon";
 export * from "./CloseIcon";
 export * from "./CancelIcon";
+export * from "./LogoutIcon";

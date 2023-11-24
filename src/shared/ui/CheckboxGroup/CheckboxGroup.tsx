@@ -9,6 +9,8 @@ interface ICheckboxGroupProps {
   title: string;
   description?: string;
   className?: string;
+  onChange?: () => void;
+  value?: boolean;
 }
 
 export const CheckboxGroup: FC<ICheckboxGroupProps> = ({
@@ -16,10 +18,12 @@ export const CheckboxGroup: FC<ICheckboxGroupProps> = ({
   title,
   description,
   className,
+  onChange,
+  value,
 }) => {
   return (
     <div className={`${s.checkboxGroup} ${className}`}>
-      <Checkbox id={id} />
+      <Checkbox id={id} onChange={onChange} value={value} />
       <label htmlFor={id}>
         <span>{title}</span>
         {description ? <p>{description}</p> : null}

@@ -4,6 +4,7 @@ import s from "./styles.module.sass";
 
 import { UploadPhoto } from "features/UploadPhoto";
 import { DeleteIcon } from "shared/ui";
+import { useUserStore } from "entities/User";
 
 type MenuList = {
   title: string;
@@ -21,17 +22,27 @@ export const Profile: FC<IProfileProps> = ({
   changeTab,
   menuList,
 }) => {
+  const { userData } = useUserStore();
+
   return (
     <div className={s.profile}>
       <div className={s.user}>
         <div className={s.imageWrapper}>
-          <img src="/user.jpg" alt="user" />
+          {
+            //@ts-ignore
+            userData?.img ? (
+              <img src="/user.jpg" alt="user" />
+            ) : (
+              <div className={s.imageSkeleton}></div>
+            )
+          }
+
           <div className={s.backdrop} />
           <UploadPhoto label="Upload Photo" className={s.upload} />
         </div>
         <div className={s.userInfo}>
-          <span className={s.name}>Peterson Kennady</span>
-          <span className={s.email}>petersonkenn@demo.com</span>
+          <span className={s.name}>{userData?.first_name}</span>
+          <span className={s.email}>{userData?.last_name}</span>
         </div>
       </div>
       <div className={s.menu}>

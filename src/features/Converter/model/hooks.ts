@@ -51,10 +51,9 @@ export const useGetAllCoins = () => {
     setLoading(true);
     try {
       const { data } = await coinsApi.getAllCoins();
-
       setAllCoins(data);
     } catch (e) {
-      console.error(e);
+      console.error("error", e);
     } finally {
       setLoading(false);
     }

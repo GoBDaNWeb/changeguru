@@ -16,6 +16,7 @@ export const UploadPhoto: FC<IUploadPhotoProps> = ({ className, label }) => {
     <div className={uploadPhotoClass}>
       <UploadIcon />
       <span>{label}</span>
+      <input type="file" />
     </div>
   );
 };
