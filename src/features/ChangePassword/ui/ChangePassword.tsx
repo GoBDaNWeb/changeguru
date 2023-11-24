@@ -46,7 +46,6 @@ export const ChangePassword = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log("data", data);
     const { old_password, new_password, new_password_repeat } = data;
 
     try {

@@ -59,8 +59,6 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({ onComplite }) => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      console.log("data", data);
-      console.log("store", store.exchangeData);
       const {
         e_name,
         e_website,
@@ -91,13 +89,11 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({ onComplite }) => {
         UID,
         e_data: data,
       };
-      console.log("exchangeData", exchangeData);
 
       const resData = await exchangeApi.registerNewExchange(exchangeData);
       if (resData.code === 200 && resData.status) {
         onComplite();
       }
-      console.log("exchangeData", exchangeData);
     } catch (e) {
       console.error("register error", e);
     }

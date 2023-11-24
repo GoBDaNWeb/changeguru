@@ -1,15 +1,26 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 
-import { useConverterStore, useGetAllCoins } from "features/Converter";
+import {
+  useConverterStore,
+  useGetAllCoins,
+  useGetTopCoins,
+} from "features/Converter";
 
 import s from "./styles.module.sass";
 
 import { Button, Input, Selector } from "shared/ui";
 
 export const ConverterFields = observer(() => {
+  const [searchHaveValue, setSearchHaveValue] = useState<string>("");
+  const [searchWantValue, setSearchWantValue] = useState<string>("");
+  const [totalCoins, setTotalCoins] = useState<string[]>([]);
+  const [options, setOptions] = useState<any[]>([]);
+
   const store = useConverterStore();
+  const { allCoins } = useGetAllCoins();
+  const { topCoins } = useGetTopCoins();
 
   const {
     handleSubmit,
@@ -31,14 +42,10 @@ export const ConverterFields = observer(() => {
   const WatchWant = watch("want");
   const WatchQuality = watch("quality");
 
-  const { allCoins } = useGetAllCoins();
-
-  const options = useMemo(() => {
-    return allCoins.map((option) => ({
-      value: option.toLowerCase(),
-      label: option,
-    }));
-  }, [allCoins]);
+  useEffect(() => {
+    if (searchHaveValue) {
+    }
+  }, [searchHaveValue]);
 
   const onSubmit = (data: any) => {
     const info = {
@@ -84,8 +91,38 @@ export const ConverterFields = observer(() => {
   }, [WatchWant]);
 
   useEffect(() => {
+    if (WatchWant && WatchHave && !WatchQuality) {
+      setValue("quality", "1");
+    }
+  }, [WatchWant, WatchHave, WatchQuality]);
+
+  useEffect(() => {
     clearErrors("quality");
   }, [WatchQuality]);
+
+  useEffect(() => {
+    const tempArr = [...allCoins, ...topCoins];
+    //@ts-ignore
+    setTotalCoins([...new Set(tempArr)]);
+  }, [allCoins, topCoins]);
+
+  useEffect(() => {
+    if (searchHaveValue || searchWantValue) {
+      setOptions(
+        totalCoins.map((option) => ({
+          value: option.toLowerCase(),
+          label: option,
+        }))
+      );
+    } else {
+      setOptions(
+        topCoins.map((option) => ({
+          value: option.toLowerCase(),
+          label: option,
+        }))
+      );
+    }
+  }, [searchHaveValue, searchWantValue, topCoins, totalCoins]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={s.fields}>
@@ -102,6 +139,7 @@ export const ConverterFields = observer(() => {
           };
           return (
             <Selector
+              onInputChange={(e) => setSearchHaveValue(e)}
               options={options}
               onChange={handleChange}
               value={WatchHave}
@@ -125,6 +163,7 @@ export const ConverterFields = observer(() => {
           };
           return (
             <Selector
+              onInputChange={(e) => setSearchWantValue(e)}
               options={options}
               onChange={handleChange}
               value={WatchWant}

@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC, useEffect, useMemo } from "react";
 
 import Select from "react-select";
 import { WindowedMenuList } from "react-windowed-select";
@@ -18,10 +18,11 @@ interface ISelectProps {
   value?: any;
   onChange?: any;
   errors?: FieldErrors;
+  onInputChange?: (e: any) => void;
 }
 
 const MenuList = (props: any) => {
-  const { options, children, maxHeight, getValue } = props;
+  const { options, children, maxHeight = "100px", getValue } = props;
   const [value] = getValue();
   const initialOffset = options.indexOf(value) * 40;
 
@@ -48,12 +49,15 @@ export const Selector: FC<ISelectProps> = ({
   value,
   onChange,
   errors,
+  onInputChange,
 }) => {
   const selectClass = `select ${className ? className : ""} ${
     errors && errors[name] ? "error" : ""
   }`;
+
   return (
     <Select
+      onInputChange={onInputChange}
       components={{ MenuList }}
       isClearable={false}
       onChange={onChange}

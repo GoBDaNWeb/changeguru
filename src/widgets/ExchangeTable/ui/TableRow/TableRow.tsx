@@ -24,7 +24,7 @@ export const TableRow: FC<ItableRowProps> = observer(
           {converterStore.converterInfo.haveCount} {item.info.from}
         </td>
         <td onClick={() => window.open(item.url)}>
-          {item.info.price} {item.info.to}
+          {item.info.price * +converterStore.converterInfo.haveCount} {item.info.to}
         </td>
         <td onClick={() => window.open(item.url)}>
           {item.info.volume} {item.info.to}

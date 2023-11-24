@@ -133,7 +133,7 @@ export const ExchangeRegister: FC<IExchangeRegisterProps> = ({
             errors={errors}
             className={s.input}
           />
-          <UploadPhoto label="Upload Logo" />
+          {/* <UploadPhoto label="Upload Logo" /> */}
         </div>
         <div className={s.section}>
           <span className={s.sectionTitle}>Personal data</span>
