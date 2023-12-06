@@ -41,5 +41,56 @@ export const navigationList = [
   },
 ];
 
+export const kycList = [
+  {
+    value: "low",
+    label: "low",
+  },
+  {
+    value: "medium",
+    label: "medium",
+  },
+  {
+    value: "high",
+    label: "high",
+  },
+];
+export const resptimeList = [
+  {
+    value: "1h",
+    label: "1h",
+  },
+  {
+    value: "2h",
+    label: "2h",
+  },
+  {
+    value: "3h",
+    label: "3h",
+  },
+  {
+    value: "4h",
+    label: "4h",
+  },
+];
+export const liquidityList = [
+  {
+    value: "10000",
+    label: "10000",
+  },
+  {
+    value: "20000",
+    label: "20000",
+  },
+  {
+    value: "30000",
+    label: "30000",
+  },
+  {
+    value: "40000",
+    label: "40000",
+  },
+];
+
 export * from "./routes";
 export * from "./constants";

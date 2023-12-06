@@ -10,16 +10,16 @@ export const LogoutIcon = () => {
       <path
         d="M8 3H3V15H8"
         stroke="#A2A8B0"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12.3878 6L15 9M15 9L12.3878 12M15 9H7"
         stroke="#A2A8B0"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

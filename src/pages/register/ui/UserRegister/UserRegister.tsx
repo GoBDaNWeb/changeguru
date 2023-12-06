@@ -75,6 +75,7 @@ export const UserRegister: FC<IUserRegisterProps> = ({ onComplite }) => {
         gender,
         country,
       } = data;
+
       const userData = {
         email: email,
         first_name: firstName,
@@ -82,11 +83,17 @@ export const UserRegister: FC<IUserRegisterProps> = ({ onComplite }) => {
         password: password,
         password_repeat: repeatPassword,
         country: country.value,
-        phone: phone,
+        phone: phone.replace(/\D/g, ""),
         gender: gender.value,
         age: +age,
       };
-
+      if (phone.replace(/\D/g, "").length < 11) {
+        setError("phone", {
+          type: "manual",
+          message: "erroe message",
+        });
+        return;
+      }
       if (password !== repeatPassword) {
         setError("password", {
           type: "manual",
@@ -106,6 +113,7 @@ export const UserRegister: FC<IUserRegisterProps> = ({ onComplite }) => {
       const resData = await userApi.registerNewUser(userData);
       if (resData.code === 200 && resData.status) {
         localStorage.setItem("token", resData.result.auth.auth_hash);
+        localStorage.setItem("authType", "user");
         handleSetUserData(userData);
         onComplite();
       }

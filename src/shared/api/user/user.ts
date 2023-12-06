@@ -11,6 +11,35 @@ type Result = {
   user_id: string;
   auth: Auth;
 };
+type User = {
+  age: number;
+  country: string;
+  created_at: Date;
+  email: string;
+  first_name: string;
+  gender: string;
+  last_name: string;
+  phone: string;
+  updated_at: Date;
+};
+type UserResult = {
+  user: User;
+};
+type UserData = {
+  cgapi: string;
+  code: number;
+  status: boolean;
+  result: UserResult;
+};
+type ImageResult = {
+  image: string;
+};
+type ImageData = {
+  cgapi: string;
+  code: number;
+  status: boolean;
+  result: ImageResult;
+};
 export type NewUser = {
   cgapi: string;
   code: number;
@@ -22,6 +51,12 @@ export type UpdateUser = {
   code: number;
   status: boolean;
   result: {};
+};
+export type GetUser = {
+  data: UserData;
+};
+export type UploadImage = {
+  data: ImageData;
 };
 
 export const registerNewUser = (data: any): Promise<NewUser> => {
@@ -45,6 +80,28 @@ export const updateUserPassword = (
     method: "post",
     url: "https://api.changeguru.io/user/update/password",
     data,
+    headers: {
+      "x-auth-token": auth,
+    },
+  });
+};
+export const uploadUserAvatar = (
+  data: any,
+  auth: any
+): Promise<UploadImage> => {
+  return axios({
+    method: "post",
+    url: "https://api.changeguru.io/user/pic",
+    data,
+    headers: {
+      "x-auth-token": auth,
+    },
+  });
+};
+export const getUser = (auth: any): Promise<GetUser> => {
+  return axios({
+    method: "get",
+    url: "https://api.changeguru.io/user",
     headers: {
       "x-auth-token": auth,
     },

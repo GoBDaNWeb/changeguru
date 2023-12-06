@@ -11,6 +11,8 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { userApi } from "shared/api";
 
 export const ChangePassword = () => {
+  const authType = localStorage.getItem("authType");
+
   const [oldPasswordType, setOldPasswordType] = useState("password");
   const [passwordType, setPasswordType] = useState("password");
   const [passwordRepeatType, setPasswordRepeatType] = useState("password");
@@ -36,6 +38,7 @@ export const ChangePassword = () => {
     handleSubmit,
     register,
     setError,
+    setValue,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
@@ -76,6 +79,9 @@ export const ChangePassword = () => {
           localStorage.getItem("token")
         );
         notify();
+        setValue("old_password", "");
+        setValue("new_password", "");
+        setValue("new_password_repeat", "");
       }
     } catch (e) {
       console.error("change password error", e);

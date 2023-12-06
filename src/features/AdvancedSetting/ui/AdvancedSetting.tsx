@@ -1,6 +1,11 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
-import { countryList } from "shared/config";
+import {
+  countryList,
+  kycList,
+  liquidityList,
+  resptimeList,
+} from "shared/config";
 
 import s from "./styles.module.sass";
 
@@ -13,18 +18,32 @@ import {
 } from "react-hook-form";
 import { useRegisterExchangeStore } from "features/RegisterExchange";
 import { exchangeApi } from "shared/api";
-
+import { useExchangeStore } from "entities/Exchange";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 interface IAdvancedSettingProps {
   onComplite: () => void;
+  type?: "register" | "update";
 }
 
-export const AdvancedSetting: FC<IAdvancedSettingProps> = ({ onComplite }) => {
+export const AdvancedSetting: FC<IAdvancedSettingProps> = ({
+  onComplite,
+  type = "register",
+}) => {
   const store = useRegisterExchangeStore();
+
+  const notify = () =>
+    toast.success("the information has been changed", {
+      position: "bottom-right",
+    });
+  const { exchangeData, handleSetExchangeData, handleSetUpdateAdvanched } =
+    useExchangeStore();
 
   const {
     register,
     handleSubmit,
     control,
+    setValue,
     watch,
     setError,
     formState: { errors },
@@ -38,9 +57,9 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({ onComplite }) => {
       support_call: false,
       support_livechat: false,
       support_whatsapp: false,
-      support_resptime: "2h",
-      kyc_level: "medium",
-      liquidity_volume: "100000000",
+      support_resptime: "",
+      kyc_level: "",
+      liquidity_volume: "",
       tf_advancedtt: false,
       tf_stoploss: false,
       tf_limitorders: false,
@@ -57,42 +76,173 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({ onComplite }) => {
     },
   });
 
+  useEffect(() => {
+    if (exchangeData && type === "update") {
+      setValue("real_rates", exchangeData.e_data.real_rates);
+      setValue("evaluate_reg", exchangeData.e_data.evaluate_reg);
+      setValue("evaluate_tc", exchangeData.e_data.evaluate_tc);
+      setValue("support_247", exchangeData.e_data.support_247);
+      setValue("support_email", exchangeData.e_data.support_email);
+      setValue("support_call", exchangeData.e_data.support_call);
+      setValue("support_livechat", exchangeData.e_data.support_livechat);
+      setValue("support_whatsapp", exchangeData.e_data.support_whatsapp);
+      setValue("support_resptime", {
+        value: exchangeData.e_data.support_resptime,
+        label: exchangeData.e_data.support_resptime,
+      });
+      setValue("kyc_level", {
+        value: exchangeData.e_data.kyc_level,
+        label: exchangeData.e_data.kyc_level,
+      });
+      setValue("liquidity_volume", {
+        value: exchangeData.e_data.liquidity_volume,
+        label: exchangeData.e_data.liquidity_volume,
+      });
+      setValue("tf_advancedtt", exchangeData.e_data.tf_advancedtt);
+      setValue("tf_stoploss", exchangeData.e_data.tf_stoploss);
+      setValue("tf_limitorders", exchangeData.e_data.tf_limitorders);
+      setValue("tf_margin", exchangeData.e_data.tf_margin);
+      setValue("tf_marketorders", exchangeData.e_data.tf_marketorders);
+      setValue("tf_charting", exchangeData.e_data.tf_charting);
+      setValue("af_2fa", exchangeData.e_data.af_2fa);
+      setValue("af_aml", exchangeData.e_data.af_aml);
+      setValue("af_coldstorage", exchangeData.e_data.af_coldstorage);
+      setValue("af_whitelisting", exchangeData.e_data.af_whitelisting);
+      setValue("af_mobileapp", exchangeData.e_data.af_mobileapp);
+      setValue("af_api", exchangeData.e_data.af_api);
+      setValue("af_insurance", exchangeData.e_data.af_insurance);
+    }
+  }, [exchangeData, setValue, type]);
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const {
-        e_name,
-        e_website,
-        e_email,
-        password,
-        password_repeat,
-        e_contact_mail,
-        country,
-        a_code,
-        a_city,
-        a_province,
-        a_street,
-        UID,
-      } = store.exchangeData;
-      const exchangeData = {
-        e_name,
-        e_website,
-        e_email,
-        password,
-        password_repeat,
-        e_contact_mail,
-        //@ts-ignore
-        country: country.value,
-        a_code,
-        a_city,
-        a_province,
-        a_street,
-        UID,
-        e_data: data,
-      };
+        real_rates,
+        evaluate_reg,
+        evaluate_tc,
+        support_247,
+        support_email,
+        support_call,
+        support_livechat,
+        support_whatsapp,
+        support_resptime,
+        kyc_level,
+        liquidity_volume,
+        tf_advancedtt,
+        tf_stoploss,
+        tf_limitorders,
+        tf_margin,
+        tf_marketorders,
+        tf_charting,
+        af_2fa,
+        af_aml,
+        af_coldstorage,
+        af_whitelisting,
+        af_mobileapp,
+        af_api,
+        af_insurance,
+      } = data;
 
-      const resData = await exchangeApi.registerNewExchange(exchangeData);
-      if (resData.code === 200 && resData.status) {
-        onComplite();
+      if (type === "register") {
+        const {
+          e_name,
+          e_website,
+          e_email,
+          password,
+          password_repeat,
+          e_contact_mail,
+          country,
+          a_code,
+          a_city,
+          a_province,
+          a_street,
+          UID,
+        } = store.exchangeData;
+
+        const additionalData = {
+          real_rates,
+          evaluate_reg,
+          evaluate_tc,
+          support_247,
+          support_email,
+          support_call,
+          support_livechat,
+          support_whatsapp,
+          support_resptime: support_resptime.value,
+          kyc_level: kyc_level.value,
+          liquidity_volume: liquidity_volume.value,
+          tf_advancedtt,
+          tf_stoploss,
+          tf_limitorders,
+          tf_margin,
+          tf_marketorders,
+          tf_charting,
+          af_2fa,
+          af_aml,
+          af_coldstorage,
+          af_whitelisting,
+          af_mobileapp,
+          af_api,
+          af_insurance,
+        };
+
+        const exchangeData = {
+          e_name,
+          e_website,
+          e_email,
+          password,
+          password_repeat,
+          e_contact_mail,
+          //@ts-ignore
+          country: country.value,
+          a_code,
+          a_city,
+          a_province,
+          a_street,
+          UID,
+          e_data: additionalData,
+        };
+        const resData = await exchangeApi.registerNewExchange(exchangeData);
+        if (resData.code === 200 && resData.status) {
+          localStorage.setItem("token", resData.result.auth.auth_hash);
+          localStorage.setItem("authType", "exchange");
+          handleSetExchangeData(exchangeData);
+          onComplite();
+        }
+      } else {
+        const ExchangeUpdateData = {
+          real_rates,
+          evaluate_reg,
+          evaluate_tc,
+          support_247,
+          support_email,
+          support_call,
+          support_livechat,
+          support_whatsapp,
+          support_resptime: support_resptime.value,
+          kyc_level: kyc_level.value,
+          liquidity_volume: liquidity_volume.value,
+          tf_advancedtt,
+          tf_stoploss,
+          tf_limitorders,
+          tf_margin,
+          tf_marketorders,
+          tf_charting,
+          af_2fa,
+          af_aml,
+          af_coldstorage,
+          af_whitelisting,
+          af_mobileapp,
+          af_api,
+          af_insurance,
+        };
+
+        notify();
+        handleSetUpdateAdvanched(ExchangeUpdateData);
+        await exchangeApi.updateAdvancedExchange(
+          ExchangeUpdateData,
+          localStorage.getItem("token")
+        );
       }
     } catch (e) {
       console.error("register error", e);
@@ -222,31 +372,70 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({ onComplite }) => {
           </div>
 
           <div className={s.inputs}>
-            <Selector
-              name="name"
-              placeholder="Response Time"
-              options={countryList}
-              className={s.selector}
+            <Controller
+              control={control}
+              name="support_resptime"
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <Selector
+                    name="support_resptime"
+                    placeholder="Response Time"
+                    options={resptimeList}
+                    className={s.selector}
+                    onChange={onChange}
+                    errors={errors}
+                    value={value}
+                  />
+                );
+              }}
             />
+
             <div className={s.withHint}>
-              <Selector
-                name="name"
-                placeholder="KYC Level"
-                options={countryList}
-                className={s.selector}
+              <Controller
+                control={control}
+                name="kyc_level"
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => {
+                  console.log("value", value);
+
+                  return (
+                    <Selector
+                      name="kyc_level"
+                      placeholder="KYC Level"
+                      options={kycList}
+                      className={s.selector}
+                      onChange={onChange}
+                      errors={errors}
+                      value={value}
+                    />
+                  );
+                }}
               />
+
               <p className={s.hint}>
                 NO KYC Low KYC | Submit ID / Passport Medium KYC | Submit
                 scanned ID + scanned Address Proof High KYC | Submit the above +
                 Video Ident
               </p>
             </div>
-
-            <Selector
-              name="name"
-              placeholder="Liquidity Volume"
-              options={countryList}
-              className={s.selector}
+            <Controller
+              control={control}
+              name="liquidity_volume"
+              rules={{ required: true }}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <Selector
+                    name="liquidity_volume"
+                    placeholder="Liquidity Volume"
+                    options={liquidityList}
+                    className={s.selector}
+                    onChange={onChange}
+                    errors={errors}
+                    value={value}
+                  />
+                );
+              }}
             />
           </div>
         </div>
@@ -431,6 +620,7 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({ onComplite }) => {
           Submit Form
         </Button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

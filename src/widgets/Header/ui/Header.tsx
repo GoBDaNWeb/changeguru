@@ -8,11 +8,12 @@ import { useModalStore } from "entities/Modal";
 
 import s from "./styles.module.sass";
 
-import { Button, LogoutIcon } from "shared/ui";
+import { Button, LogoutIcon, UserIcon } from "shared/ui";
 import { BurgerIcon } from "shared/ui/BurgerIcon";
 import { Burger } from "features/Burger";
 import { Logo } from "entities/Logo";
 import { useUserStore } from "entities/User";
+import { useExchangeStore } from "entities/Exchange";
 
 export const Header = observer(() => {
   const [active, setActive] = useState(false);
@@ -21,6 +22,7 @@ export const Header = observer(() => {
 
   const { handleOpenLoginModal } = useModalStore();
   const { userData, handleSetUserData } = useUserStore();
+  const { exchangeData } = useExchangeStore();
 
   const controlNavbar = () => {
     if (typeof window !== "undefined") {
@@ -42,6 +44,7 @@ export const Header = observer(() => {
   }, []);
 
   const headerClass = `${s.header} ${active ? s.active : ""} container`;
+  const authType = localStorage.getItem("authType");
 
   return (
     <header className={headerClass}>
@@ -53,7 +56,7 @@ export const Header = observer(() => {
           </NavLink>
         ))}
       </nav>
-      {!userData ? (
+      {!localStorage.getItem("token") ? (
         <div className={s.auth}>
           <Button
             onClick={handleOpenLoginModal}
@@ -72,24 +75,58 @@ export const Header = observer(() => {
         </div>
       ) : (
         <div className={s.user}>
-          <NavLink to={PATH_PAGE.userProfile} className={s.userInfo}>
+          <NavLink
+            to={
+              authType === "user"
+                ? PATH_PAGE.userProfile
+                : PATH_PAGE.exchangeProfile
+            }
+            className={s.userInfo}
+          >
             <div className={s.imageWrapper}>
-              {
-                //@ts-ignore
-                !userData.img ? (
-                  <div className={s.imageSkeleton}></div>
-                ) : (
-                  <img src="" alt="user" />
-                )
-              }
+              {authType === "user" ? (
+                <>
+                  {!userData?.avatar ? (
+                    <div className={s.userIconWrapper}>
+                      <UserIcon />
+                    </div>
+                  ) : (
+                    <img
+                      src={`https://api.changeguru.io/static/img/${userData.avatar}`}
+                      alt="user"
+                    />
+                  )}
+                </>
+              ) : (
+                <>
+                  {!exchangeData?.avatar ? (
+                    <div className={s.userIconWrapper}>
+                      <UserIcon />
+                    </div>
+                  ) : (
+                    <img
+                      src={`https://api.changeguru.io/static/img/${exchangeData.avatar}`}
+                      alt="exchange"
+                    />
+                  )}
+                </>
+              )}
             </div>
             <p className={s.name}>
-              {userData.first_name} {userData.last_name}
+              {authType === "user" ? (
+                <>
+                  {userData?.first_name} {userData?.last_name}
+                </>
+              ) : (
+                <>{exchangeData?.e_name}</>
+              )}
             </p>
           </NavLink>
 
           <Button
             onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("authType");
               handleSetUserData(null);
               navigate(PATH_PAGE.root);
             }}

@@ -7,6 +7,8 @@ import { ConverterProvider } from "features/Converter";
 import { TableFiltersProvider } from "features/TableFilters";
 import { RegisterExchangeProvider } from "features/RegisterExchange";
 import { UserProvider } from "entities/User";
+import { ExchangeProvider } from "entities/Exchange";
+import AuthProvider from "./AuthProvider";
 
 const Provider = () => {
   return (
@@ -15,13 +17,17 @@ const Provider = () => {
         <MenuProvider>
           <ModalProvider>
             <UserProvider>
-              <RegisterExchangeProvider>
-                <TableFiltersProvider>
-                  <ToTopProvider>
-                    <Router />
-                  </ToTopProvider>
-                </TableFiltersProvider>
-              </RegisterExchangeProvider>
+              <ExchangeProvider>
+                <RegisterExchangeProvider>
+                  <TableFiltersProvider>
+                    <AuthProvider>
+                      <ToTopProvider>
+                        <Router />
+                      </ToTopProvider>
+                    </AuthProvider>
+                  </TableFiltersProvider>
+                </RegisterExchangeProvider>
+              </ExchangeProvider>
             </UserProvider>
           </ModalProvider>
         </MenuProvider>

@@ -13,9 +13,13 @@ import { userApi } from "shared/api";
 import { useUserStore } from "entities/User";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { observer } from "mobx-react-lite";
+import { useEffect, useState } from "react";
 
-export const UserInformations = () => {
-  const { userData } = useUserStore();
+export const UserInformations = observer(() => {
+  const [defaultCountry, setDefaultCountry] = useState({});
+  const { userData, handleUpdateUser } = useUserStore();
+
   const notify = () =>
     toast.success("the information has been changed", {
       position: "bottom-right",
@@ -24,34 +28,70 @@ export const UserInformations = () => {
     handleSubmit,
     register,
     control,
+    setValue,
+    setError,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      first_name: userData ? userData.first_name : "",
-      last_name: userData ? userData.last_name : "",
-      country: userData ? userData.country : "",
-      email: userData ? userData.email : "",
-      phone: userData ? userData.phone : "",
-      gender: userData ? userData.gender : "",
-      age: userData ? userData.age : "",
+      first_name: "",
+      last_name: "",
+      country: "",
+      email: "",
+      phone: "",
+      gender: "",
+      age: "",
     },
   });
 
+  useEffect(() => {
+    if (userData) {
+      setValue("first_name", userData.first_name);
+      setValue("last_name", userData.last_name);
+      setValue("country", {
+        value: userData.country,
+        label:
+          userData.country.charAt(0).toUpperCase() + userData.country.slice(1),
+      });
+      setValue("email", userData.email);
+      setValue("phone", userData.phone);
+      setValue("gender", {
+        value: userData.gender,
+        label:
+          userData.gender.charAt(0).toUpperCase() + userData.gender.slice(1),
+      });
+      setValue("age", userData.age);
+      setDefaultCountry({
+        value: userData.country,
+        label:
+          userData.country.charAt(0).toUpperCase() + userData.country.slice(1),
+      });
+    }
+  }, [userData]);
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { first_name, last_name, country, email, phone, gender, age } = data;
+
+    if (phone.replace(/\D/g, "").length < 11) {
+      setError("phone", {
+        type: "manual",
+        message: "erroe message",
+      });
+      return;
+    }
 
     const updateUserData = {
       first_name,
       last_name,
       country: country.value,
       email,
-      phone,
+      phone: phone.replace(/\D/g, ""),
       gender: gender.value,
       age,
     };
 
     if (localStorage.getItem("token")) {
       await userApi.updateUser(updateUserData, localStorage.getItem("token"));
+      handleUpdateUser(updateUserData);
       notify();
     }
   };
@@ -98,7 +138,9 @@ export const UserInformations = () => {
           control={control}
           name="country"
           rules={{ required: true }}
-          render={({ field: { onChange } }) => {
+          render={({ field: { onChange, value } }) => {
+            console.log("value", value);
+
             return (
               <Selector
                 options={countryList}
@@ -107,6 +149,8 @@ export const UserInformations = () => {
                 className={s.selector}
                 name="country"
                 errors={errors}
+                defaultValue={value}
+                value={value}
               />
             );
           }}
@@ -116,7 +160,7 @@ export const UserInformations = () => {
             control={control}
             name="gender"
             rules={{ required: true }}
-            render={({ field: { onChange } }) => {
+            render={({ field: { onChange, value } }) => {
               return (
                 <Selector
                   options={genderList}
@@ -125,6 +169,8 @@ export const UserInformations = () => {
                   name="gender"
                   errors={errors}
                   onChange={onChange}
+                  defaultValue={value}
+                  value={value}
                 />
               );
             }}
@@ -145,4 +191,4 @@ export const UserInformations = () => {
       <ToastContainer />
     </div>
   );
-};
+});
