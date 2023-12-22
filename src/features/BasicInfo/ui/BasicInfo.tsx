@@ -14,9 +14,18 @@ import {
 } from "react-hook-form";
 import { useExchangeStore } from "entities/Exchange";
 import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { observer } from "mobx-react-lite";
+import { exchangeApi } from "shared/api";
 
-export const BasicInfo = () => {
-  const { exchangeData } = useExchangeStore();
+export const BasicInfo = observer(() => {
+  const { exchangeData, handleUpdateExchange } = useExchangeStore();
+
+  const notify = () =>
+    toast.success("the information has been changed", {
+      position: "bottom-right",
+    });
 
   const {
     register,
@@ -37,46 +46,51 @@ export const BasicInfo = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    // const { first_name, last_name, country, email, phone, gender, age } = data;
-    console.log("data", data);
-
-    // if (phone.replace(/\D/g, "").length < 11) {
-    //   setError("phone", {
-    //     type: "manual",
-    //     message: "erroe message",
-    //   });
-    //   return;
-    // }
-
-    // const updateUserData = {
-    //   first_name,
-    //   last_name,
-    //   country: country.value,
-    //   email,
-    //   phone: phone.replace(/\D/g, ""),
-    //   gender: gender.value,
-    //   age,
-    // };
-
-    if (localStorage.getItem("token")) {
-      // await userApi.updateUser(updateUserData, localStorage.getItem("token"));
-      // handleUpdateUser(updateUserData);
-      // notify();
-    }
-  };
-
   useEffect(() => {
     if (exchangeData) {
       setValue("e_name", exchangeData.e_name);
       setValue("e_website", exchangeData.e_website);
-      setValue("country", exchangeData.country);
+      setValue("country", {
+        value: exchangeData.country,
+        label:
+          exchangeData.country.charAt(0).toUpperCase() +
+          exchangeData.country.slice(1),
+      });
       setValue("e_short_description", exchangeData.e_short_description);
       setValue("e_long_description", exchangeData.e_long_description);
       setValue("a_code", exchangeData.a_code);
       setValue("e_email", exchangeData.e_email);
     }
-  }, [exchangeData, setValue]);
+  }, [exchangeData]);
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const {
+      e_name,
+      e_website,
+      country,
+      e_short_description,
+      e_long_description,
+      a_code,
+      e_email,
+    } = data;
+    const updateExchangeData = {
+      e_name,
+      e_website,
+      country: country.value,
+      e_short_description,
+      e_long_description,
+      a_code,
+      e_email,
+    };
+    if (localStorage.getItem("token")) {
+      await exchangeApi.updateExchange(
+        updateExchangeData,
+        localStorage.getItem("token")
+      );
+      handleUpdateExchange(updateExchangeData);
+      notify();
+    }
+  };
 
   return (
     <div className={s.info}>
@@ -99,14 +113,18 @@ export const BasicInfo = () => {
           />
         </div>
         <TextArea
+          required
           id="e_short_description"
           register={register}
           placeholder="Short Description"
+          errors={errors}
         />
         <TextArea
+          required
           id="e_long_description"
           register={register}
           placeholder="Long Description"
+          errors={errors}
         />
         <div className={s.doubleInputs}>
           <Controller
@@ -130,10 +148,11 @@ export const BasicInfo = () => {
           />
 
           <Input
-            id="date"
+            required
+            id="a_code"
             register={register}
-            placeholder="Launch Date"
-            icon={<CalendarIcon />}
+            placeholder="Code"
+            // icon={<CalendarIcon />}
           />
         </div>
         {/* <UploadPhoto label="Upload Logo" /> */}
@@ -144,6 +163,7 @@ export const BasicInfo = () => {
           Save changes
         </Button>
       </form>
+      <ToastContainer />
     </div>
   );
-};
+});

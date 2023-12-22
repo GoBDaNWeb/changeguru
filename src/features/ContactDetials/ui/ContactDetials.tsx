@@ -37,14 +37,14 @@ export const ContactDetials = observer(() => {
 
   useEffect(() => {
     if (exchangeData) {
-      setValue("e_phone", exchangeData.e_phone);
-      setValue("e_whatsapp", exchangeData.e_whatsapp);
-      setValue("e_telegram", exchangeData.e_telegram);
-      setValue("e_twitter", exchangeData.e_twitter);
-      setValue("e_discord", exchangeData.e_discord);
-      setValue("e_instagram", exchangeData.e_instagram);
-      setValue("e_facebook", exchangeData.e_facebook);
-      setValue("e_reddit", exchangeData.e_reddit);
+      setValue("e_phone", exchangeData.e_socials.e_phone);
+      setValue("e_whatsapp", exchangeData.e_socials.e_whatsapp);
+      setValue("e_telegram", exchangeData.e_socials.e_telegram);
+      setValue("e_twitter", exchangeData.e_socials.e_twitter);
+      setValue("e_discord", exchangeData.e_socials.e_discord);
+      setValue("e_instagram", exchangeData.e_socials.e_instagram);
+      setValue("e_facebook", exchangeData.e_socials.e_facebook);
+      setValue("e_reddit", exchangeData.e_socials.e_reddit);
     }
   }, [exchangeData]);
 

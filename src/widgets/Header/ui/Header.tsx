@@ -8,7 +8,7 @@ import { useModalStore } from "entities/Modal";
 
 import s from "./styles.module.sass";
 
-import { Button, LogoutIcon, UserIcon } from "shared/ui";
+import { Button, LogoutIcon, Skeleton, UserIcon } from "shared/ui";
 import { BurgerIcon } from "shared/ui/BurgerIcon";
 import { Burger } from "features/Burger";
 import { Logo } from "entities/Logo";
@@ -115,10 +115,26 @@ export const Header = observer(() => {
             <p className={s.name}>
               {authType === "user" ? (
                 <>
-                  {userData?.first_name} {userData?.last_name}
+                  {!userData?.first_name ? (
+                    <Skeleton
+                      customStyles={{ width: "150px", height: "20px" }}
+                    />
+                  ) : (
+                    <>
+                      {userData?.first_name} {userData?.last_name}
+                    </>
+                  )}
                 </>
               ) : (
-                <>{exchangeData?.e_name}</>
+                <>
+                  {!exchangeData?.e_name ? (
+                    <Skeleton
+                      customStyles={{ width: "150px", height: "20px" }}
+                    />
+                  ) : (
+                    <>{exchangeData?.e_name}</>
+                  )}
+                </>
               )}
             </p>
           </NavLink>

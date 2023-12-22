@@ -18,16 +18,17 @@ export function useUpload(imageObj: File, type: "user" | "exchange"): IRespose {
     try {
       if (!imageObj?.name) return;
       const formData = new FormData();
-      formData.append("userpic", imageObj);
       if (type === "user") {
+        formData.append("userpic", imageObj);
+
         const { data } = await userApi.uploadUserAvatar(
           formData,
           localStorage.getItem("token")
         );
         setImage(data.result.image);
-
-        console.log(data.result.image);
       } else {
+        formData.append("e_pic", imageObj);
+
         const { data } = await exchangeApi.uploadExchangeAvatar(
           formData,
           localStorage.getItem("token")

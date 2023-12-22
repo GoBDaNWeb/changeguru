@@ -139,8 +139,6 @@ export const UserInformations = observer(() => {
           name="country"
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => {
-            console.log("value", value);
-
             return (
               <Selector
                 options={countryList}
@@ -184,7 +182,7 @@ export const UserInformations = observer(() => {
             icon={<CalendarIcon />}
           />
         </div>
-        <Button onClick={() => {}} type="submit" className={s.btn}>
+        <Button type="submit" onClick={() => {}} className={s.btn}>
           Save changes
         </Button>
       </form>

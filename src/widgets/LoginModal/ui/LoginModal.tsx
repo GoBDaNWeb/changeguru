@@ -7,7 +7,13 @@ import s from "./styles.module.sass";
 
 import { changePasswordType } from "shared/lib/changePasswordType";
 import { Backdrop, Button, EyeIcon, Input, ModalWrapper } from "shared/ui";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { exchangeApi, userApi } from "shared/api";
+import { getExchange, getUser } from "shared/lib";
+import { useUserStore } from "entities/User";
+import { useExchangeStore } from "entities/Exchange";
 
 interface IFooterProps {
   onClick: () => void;
@@ -55,10 +61,18 @@ export const LoginModal = observer(() => {
 });
 
 const BodyModal = () => {
-  const passwordRef = useRef<HTMLInputElement>(null);
+  const [passwordType, setPasswordType] = useState("password");
 
+  const { handleSetUserData } = useUserStore();
+  const { handleSetExchangeData } = useExchangeStore();
+  const { handleOpenLoginModal } = useModalStore();
+  const notify = () =>
+    toast.error("something went wrong", {
+      position: "bottom-right",
+    });
   const {
     register,
+    handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
@@ -67,28 +81,65 @@ const BodyModal = () => {
     },
   });
 
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { email, password } = data;
+    const authData = {
+      email,
+      password,
+    };
+    try {
+      try {
+        const resData = await userApi.authUser(authData);
+
+        if (resData.code === 200 && resData.status) {
+          getUser(resData.result.auth.auth_hash, handleSetUserData);
+          localStorage.setItem("token", resData.result.auth.auth_hash);
+          localStorage.setItem("authType", "user");
+          handleOpenLoginModal();
+          document.body.classList.remove("noScroll");
+        }
+      } catch (e) {
+        const resData = await exchangeApi.authExchange(authData);
+
+        if (resData.code === 200 && resData.status) {
+          getExchange(resData.result.auth.auth_hash, handleSetExchangeData);
+          localStorage.setItem("token", resData.result.auth.auth_hash);
+          localStorage.setItem("authType", "exchange");
+          handleOpenLoginModal();
+          document.body.classList.remove("noScroll");
+        }
+      }
+    } catch (e) {
+      notify();
+      console.log("auth error", e);
+    }
+  };
+
+  const changePasswordType = () => {
+    setPasswordType(passwordType === "password" ? "text" : "password");
+  };
+
   return (
-    <div className={s.body}>
+    <form onSubmit={handleSubmit(onSubmit)} className={s.body}>
       <Input id="email" register={register} placeholder="Email/ID" />
       <Input
         id="password"
         register={register}
         placeholder="Password"
-        type="password"
-        ref={passwordRef}
+        type={passwordType}
+        // ref={passwordRef}
         icon={
-          <Button
-            onClick={() => changePasswordType(passwordRef)}
-            variant="clear"
-          >
+          <Button onClick={() => changePasswordType()} variant="clear">
             <EyeIcon />
           </Button>
         }
       />
-      <Button onClick={() => {}} className={s.loginBtn}>
+      <Button type="submit" onClick={() => {}} className={s.loginBtn}>
         Login
       </Button>
-    </div>
+      <ToastContainer />
+    </form>
   );
 };
 

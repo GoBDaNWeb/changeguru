@@ -39,6 +39,10 @@ type Exchange = {
   UID?: string;
   avatar?: string;
   e_data: AdvancedData;
+  e_pic?: string;
+  e_socials?: AdvancedData;
+  e_long_description?: string;
+  e_short_description?: string;
 };
 type ExchangeResult = {
   user: Exchange;
@@ -64,16 +68,21 @@ type ImageData = {
 type UploadImage = {
   data: ImageData;
 };
+
 export const registerNewExchange = (data: any): Promise<NewExchange> => {
   return apiInstance.post(`/new/exchange`, data);
 };
+export const authExchange = (auth: any): Promise<NewExchange> => {
+  return apiInstance.post(`exchange/auth`, auth);
+};
+
 export const updateExchange = (
   data: any,
   auth: any
 ): Promise<UpdateExchange> => {
   return axios({
     method: "post",
-    url: "https://api.changeguru.io/user/update",
+    url: "https://api.changeguru.io/exchange/profile-update",
     data,
     headers: {
       "x-auth-token": auth,
@@ -84,6 +93,19 @@ export const getExchange = (auth: any): Promise<GetExchange> => {
   return axios({
     method: "get",
     url: "https://api.changeguru.io/exchange",
+    headers: {
+      "x-auth-token": auth,
+    },
+  });
+};
+export const updateExchangePassword = (
+  data: any,
+  auth: any
+): Promise<UpdateExchange> => {
+  return axios({
+    method: "post",
+    url: "https://api.changeguru.io/exchange/update/password",
+    data,
     headers: {
       "x-auth-token": auth,
     },

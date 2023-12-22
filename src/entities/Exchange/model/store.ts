@@ -19,14 +19,7 @@ interface IExhangeData {
   avatar?: string;
   e_short_description?: string;
   e_long_description?: string;
-  e_phone?: string;
-  e_whatsapp?: string;
-  e_telegram?: string;
-  e_twitter?: string;
-  e_discord?: string;
-  e_instagram?: string;
-  e_facebook?: string;
-  e_reddit?: string;
+  e_socials: AdvancedData;
   e_data: AdvancedData;
 }
 
@@ -45,16 +38,36 @@ class ExchangeStore {
       this.exchangeData!.avatar = avatar;
     }
   };
+  handleUpdateExchange = (exchange: any) => {
+    const {
+      e_name,
+      e_website,
+      e_short_description,
+      e_long_description,
+      country,
+      a_code,
+      e_email,
+    } = exchange;
+    if (this.exchangeData) {
+      this.exchangeData!.e_name = e_name;
+      this.exchangeData!.e_website = e_website;
+      this.exchangeData!.e_short_description = e_short_description;
+      this.exchangeData!.e_long_description = e_long_description;
+      this.exchangeData!.country = country;
+      this.exchangeData!.a_code = a_code;
+      this.exchangeData!.e_email = e_email;
+    }
+  };
   handleSetUpdateContacts = (contacts: any) => {
     if (this.exchangeData) {
-      this.exchangeData.e_phone = contacts.e_phone;
-      this.exchangeData.e_whatsapp = contacts.e_whatsapp;
-      this.exchangeData.e_telegram = contacts.e_telegram;
-      this.exchangeData.e_twitter = contacts.e_twitter;
-      this.exchangeData.e_discord = contacts.e_discord;
-      this.exchangeData.e_instagram = contacts.e_instagram;
-      this.exchangeData.e_facebook = contacts.e_facebook;
-      this.exchangeData.e_reddit = contacts.e_reddit;
+      this.exchangeData.e_socials.e_phone = contacts.e_phone;
+      this.exchangeData.e_socials.e_whatsapp = contacts.e_whatsapp;
+      this.exchangeData.e_socials.e_telegram = contacts.e_telegram;
+      this.exchangeData.e_socials.e_twitter = contacts.e_twitter;
+      this.exchangeData.e_socials.e_discord = contacts.e_discord;
+      this.exchangeData.e_socials.e_instagram = contacts.e_instagram;
+      this.exchangeData.e_socials.e_facebook = contacts.e_facebook;
+      this.exchangeData.e_socials.e_reddit = contacts.e_reddit;
     }
   };
   handleSetUpdateAdvanched = (advanced: any) => {

@@ -21,6 +21,7 @@ type User = {
   last_name: string;
   phone: string;
   updated_at: Date;
+  user_pic?: string;
 };
 type UserResult = {
   user: User;
@@ -59,9 +60,20 @@ export type UploadImage = {
   data: ImageData;
 };
 
+type UserAuth = {
+  cgapi: string;
+  code: number;
+  status: boolean;
+  result: Result;
+};
+
 export const registerNewUser = (data: any): Promise<NewUser> => {
   return apiInstance.post(`/new/user`, data);
 };
+export const authUser = (auth: any): Promise<UserAuth> => {
+  return apiInstance.post(`user/auth`, auth);
+};
+
 export const updateUser = (data: any, auth: any): Promise<UpdateUser> => {
   return axios({
     method: "post",

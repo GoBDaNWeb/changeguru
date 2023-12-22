@@ -54,10 +54,12 @@ export const Profile: FC<IProfileProps> = observer(
     }, [watchImage]);
 
     useEffect(() => {
-      if (authType === "user") {
-        handleSetUserAvatar(image);
-      } else {
-        handleSetExchangeAvatar(image);
+      if (image) {
+        if (authType === "user") {
+          handleSetUserAvatar(image);
+        } else {
+          handleSetExchangeAvatar(image);
+        }
       }
     }, [image]);
 
@@ -71,17 +73,35 @@ export const Profile: FC<IProfileProps> = observer(
       <div className={s.profile}>
         <div className={s.user}>
           <div className={s.imageWrapper}>
-            {
-              //@ts-ignore
-              userData?.avatar ? (
-                <img
-                  src={`https://api.changeguru.io/static/img/${userData.avatar}`}
-                  alt="user"
-                />
-              ) : (
-                <div className={s.imageSkeleton}></div>
-              )
-            }
+            {authType === "user" ? (
+              <>
+                {
+                  //@ts-ignore
+                  userData?.avatar ? (
+                    <img
+                      src={`https://api.changeguru.io/static/img/${userData.avatar}`}
+                      alt="user"
+                    />
+                  ) : (
+                    <div className={s.imageSkeleton}></div>
+                  )
+                }
+              </>
+            ) : (
+              <>
+                {
+                  //@ts-ignore
+                  exchangeData?.avatar ? (
+                    <img
+                      src={`https://api.changeguru.io/static/img/${exchangeData.avatar}`}
+                      alt="user"
+                    />
+                  ) : (
+                    <div className={s.imageSkeleton}></div>
+                  )
+                }
+              </>
+            )}
 
             <div className={s.backdrop} />
             <UploadPhoto

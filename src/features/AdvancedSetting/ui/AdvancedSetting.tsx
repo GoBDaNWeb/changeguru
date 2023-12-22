@@ -201,6 +201,7 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({
           a_street,
           UID,
           e_data: additionalData,
+          e_socials: {},
         };
         const resData = await exchangeApi.registerNewExchange(exchangeData);
         if (resData.code === 200 && resData.status) {
@@ -397,8 +398,6 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({
                 name="kyc_level"
                 rules={{ required: true }}
                 render={({ field: { onChange, value } }) => {
-                  console.log("value", value);
-
                   return (
                     <Selector
                       name="kyc_level"

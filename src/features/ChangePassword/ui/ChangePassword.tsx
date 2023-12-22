@@ -8,7 +8,7 @@ import s from "./styles.module.sass";
 
 import { Button, EyeIcon, Input } from "shared/ui";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { userApi } from "shared/api";
+import { exchangeApi, userApi } from "shared/api";
 
 export const ChangePassword = () => {
   const authType = localStorage.getItem("authType");
@@ -74,14 +74,25 @@ export const ChangePassword = () => {
         return;
       }
       if (localStorage.getItem("token")) {
-        await userApi.updateUserPassword(
-          newPaswordData,
-          localStorage.getItem("token")
-        );
-        notify();
-        setValue("old_password", "");
-        setValue("new_password", "");
-        setValue("new_password_repeat", "");
+        if (localStorage.getItem("authType") === "user") {
+          await userApi.updateUserPassword(
+            newPaswordData,
+            localStorage.getItem("token")
+          );
+          notify();
+          setValue("old_password", "");
+          setValue("new_password", "");
+          setValue("new_password_repeat", "");
+        } else {
+          await exchangeApi.updateExchangePassword(
+            newPaswordData,
+            localStorage.getItem("token")
+          );
+          notify();
+          setValue("old_password", "");
+          setValue("new_password", "");
+          setValue("new_password_repeat", "");
+        }
       }
     } catch (e) {
       console.error("change password error", e);
