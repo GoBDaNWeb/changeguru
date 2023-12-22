@@ -35,8 +35,8 @@ export const UserRegister: FC<IUserRegisterProps> = ({ onComplite }) => {
     );
   };
 
-  const notify = () =>
-    toast.error("something went wrong", {
+  const notifyReg = () =>
+    toast.success("you have successfully registered", {
       position: "bottom-right",
     });
 
@@ -116,10 +116,17 @@ export const UserRegister: FC<IUserRegisterProps> = ({ onComplite }) => {
         localStorage.setItem("authType", "user");
         handleSetUserData(userData);
         onComplite();
+        notifyReg();
       }
     } catch (e) {
-      notify();
-      console.error("register error", e);
+      //@ts-ignore
+      const messageErr = e.response.data.result.message;
+      const notifyErr = () =>
+        toast.error(messageErr, {
+          position: "bottom-right",
+        });
+      notifyErr();
+      console.error("register error", messageErr);
     }
   };
 

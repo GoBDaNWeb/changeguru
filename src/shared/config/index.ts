@@ -43,52 +43,52 @@ export const navigationList = [
 
 export const kycList = [
   {
-    value: "low",
-    label: "low",
+    value: "NO",
+    label: "NO",
   },
   {
-    value: "medium",
-    label: "medium",
+    value: "Low (ID / Passport)",
+    label: "Low (ID / Passport)",
   },
   {
-    value: "high",
-    label: "high",
+    value: "High (Submit ID/Passport + proof of address)",
+    label: "High (Submit ID/Passport + proof of address)",
   },
 ];
 export const resptimeList = [
   {
-    value: "1h",
-    label: "1h",
+    value: "<1 hour",
+    label: "< 1 hour",
   },
   {
-    value: "2h",
-    label: "2h",
+    value: "<3 hours",
+    label: "< 3 hours",
   },
   {
-    value: "3h",
-    label: "3h",
+    value: "<8 hours",
+    label: "< 8 hours",
   },
   {
-    value: "4h",
-    label: "4h",
+    value: "<24 hours",
+    label: "< 24 hours",
+  },
+  {
+    value: ">24 hours",
+    label: "> 24 hours",
   },
 ];
 export const liquidityList = [
   {
-    value: "10000",
-    label: "10000",
+    value: "<100M",
+    label: "< 100M",
   },
   {
-    value: "20000",
-    label: "20000",
+    value: "<500M",
+    label: "< 500M",
   },
   {
-    value: "30000",
-    label: "30000",
-  },
-  {
-    value: "40000",
-    label: "40000",
+    value: ">500M",
+    label: "> 500M",
   },
 ];
 

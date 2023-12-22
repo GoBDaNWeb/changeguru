@@ -36,6 +36,10 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({
     toast.success("the information has been changed", {
       position: "bottom-right",
     });
+  const notifyReg = () =>
+    toast.success("you have successfully registered", {
+      position: "bottom-right",
+    });
   const { exchangeData, handleSetExchangeData, handleSetUpdateAdvanched } =
     useExchangeStore();
 
@@ -208,6 +212,7 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({
           localStorage.setItem("token", resData.result.auth.auth_hash);
           localStorage.setItem("authType", "exchange");
           handleSetExchangeData(exchangeData);
+          notifyReg();
           onComplite();
         }
       } else {
@@ -246,7 +251,18 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({
         );
       }
     } catch (e) {
-      console.error("register error", e);
+      //@ts-ignore
+      const messageErr = e.response.data.result.message;
+      const notifyErr = () =>
+        toast.error(messageErr, {
+          position: "bottom-right",
+        });
+      notifyErr();
+      console.error(
+        "register error",
+        //@ts-ignore
+        e.response.data.result.message
+      );
     }
   };
 

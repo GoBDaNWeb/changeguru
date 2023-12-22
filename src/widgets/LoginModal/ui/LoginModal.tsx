@@ -14,6 +14,7 @@ import { exchangeApi, userApi } from "shared/api";
 import { getExchange, getUser } from "shared/lib";
 import { useUserStore } from "entities/User";
 import { useExchangeStore } from "entities/Exchange";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface IFooterProps {
   onClick: () => void;
@@ -66,6 +67,8 @@ const BodyModal = () => {
   const { handleSetUserData } = useUserStore();
   const { handleSetExchangeData } = useExchangeStore();
   const { handleOpenLoginModal } = useModalStore();
+  const location = useLocation();
+  const navigate = useNavigate();
   const notify = () =>
     toast.error("something went wrong", {
       position: "bottom-right",
@@ -82,8 +85,8 @@ const BodyModal = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { email, password } = data;
+
     const authData = {
       email,
       password,
@@ -108,6 +111,9 @@ const BodyModal = () => {
           localStorage.setItem("authType", "exchange");
           handleOpenLoginModal();
           document.body.classList.remove("noScroll");
+          if (location.pathname === "/register") {
+            navigate("/");
+          }
         }
       }
     } catch (e) {
@@ -122,8 +128,16 @@ const BodyModal = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={s.body}>
-      <Input id="email" register={register} placeholder="Email/ID" />
       <Input
+        errors={errors}
+        required
+        id="email"
+        register={register}
+        placeholder="Email/ID"
+      />
+      <Input
+        errors={errors}
+        required
         id="password"
         register={register}
         placeholder="Password"
