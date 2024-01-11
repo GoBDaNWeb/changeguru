@@ -20,6 +20,9 @@ class TableFiltersInfo {
     tf_advancedtradingtool: false,
     tf_chartingtools: false,
     tf_limitorders: false,
+    support_resptime: "",
+    kyc_level: "",
+    liquidity_volume: "",
   };
 
   search = "";

@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction } from "react";
+import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { observer } from "mobx-react-lite";
 
@@ -9,6 +9,7 @@ import { TradingFeatures } from "../TradingFeatures/TradingFeatures";
 import { AdvancedFeatures } from "../AdvancedFeatures/AdvancedFeatures";
 import { Settings } from "../Settings/Settings";
 import { useTableFiltersStore } from "features/TableFilters";
+import { useExchangeStore } from "entities/Exchange";
 
 interface IFiltersProps {
   isOpen: boolean;
@@ -17,11 +18,12 @@ interface IFiltersProps {
 
 export const Filters: FC<IFiltersProps> = observer(({ isOpen, handleOpen }) => {
   const store = useTableFiltersStore();
-
+  const { exchangeData } = useExchangeStore();
   const {
     handleSubmit,
     control,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
@@ -42,11 +44,33 @@ export const Filters: FC<IFiltersProps> = observer(({ isOpen, handleOpen }) => {
       tf_margintrading: false,
       tf_marketorders: false,
       tf_chartingtools: false,
+      support_resptime: "",
+      kyc_level: "",
+      liquidity_volume: "",
     },
   });
 
+  useEffect(() => {
+    if (exchangeData) {
+      setValue("support_resptime", {
+        value: exchangeData.e_data.support_resptime,
+        label: exchangeData.e_data.support_resptime,
+      });
+      setValue("kyc_level", {
+        value: exchangeData.e_data.kyc_level,
+        label: exchangeData.e_data.kyc_level,
+      });
+      setValue("liquidity_volume", {
+        value: exchangeData.e_data.liquidity_volume,
+        label: exchangeData.e_data.liquidity_volume,
+      });
+    }
+  }, [exchangeData, setValue]);
+
   const onSubmit = (data: any) => {
-    store.handleChangeFilters(data);
+    console.log("data", data);
+
+    // store.handleChangeFilters(data);
   };
 
   const handleReset = () => {
@@ -64,7 +88,11 @@ export const Filters: FC<IFiltersProps> = observer(({ isOpen, handleOpen }) => {
       </div>
       <div className={s.separator} />
       <div className={s.rightPart}>
-        <Settings handleOpen={handleOpen} reset={handleReset} />
+        <Settings
+          handleOpen={handleOpen}
+          reset={handleReset}
+          control={control}
+        />
       </div>
     </form>
   );

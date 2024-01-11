@@ -25,7 +25,7 @@ export interface IExchange {
 }
 
 export type ExchangeFeatures = {
-  [x: string]: boolean;
+  [x: string]: boolean | string;
 };
 
 type Info = {
@@ -53,6 +53,8 @@ export const ExchangeTable = observer(() => {
   });
 
   const filteredExchanges = useMemo(() => {
+    console.log(exchanges);
+
     return exchanges?.filter((exchange) => {
       return Object.keys(filtersStore.filters).some((filterKey) => {
         return (
