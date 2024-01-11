@@ -1,7 +1,11 @@
 import { makeAutoObservable } from "mobx";
 
+type Obj = {
+  value: string;
+  label: string;
+};
 type AdvancedData = {
-  [x: string]: string;
+  [x: string]: string | any;
 };
 interface IExhangeData {
   e_name: string;

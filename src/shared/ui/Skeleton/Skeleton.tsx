@@ -7,5 +7,5 @@ export interface ISkeletonProps {
 }
 
 export const Skeleton: FC<ISkeletonProps> = ({ customStyles }) => {
-  return <div style={{ ...customStyles }} className={s.skeleton} />;
+  return <span style={{ ...customStyles }} className={s.skeleton} />;
 };

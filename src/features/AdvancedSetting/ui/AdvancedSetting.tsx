@@ -61,9 +61,9 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({
       support_call: false,
       support_livechat: false,
       support_whatsapp: false,
-      support_resptime: "",
-      kyc_level: "",
-      liquidity_volume: "",
+      support_resptime: {},
+      kyc_level: {},
+      liquidity_volume: {},
       tf_advancedtt: false,
       tf_stoploss: false,
       tf_limitorders: false,
@@ -90,18 +90,9 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({
       setValue("support_call", exchangeData.e_data.support_call);
       setValue("support_livechat", exchangeData.e_data.support_livechat);
       setValue("support_whatsapp", exchangeData.e_data.support_whatsapp);
-      setValue("support_resptime", {
-        value: exchangeData.e_data.support_resptime,
-        label: exchangeData.e_data.support_resptime,
-      });
-      setValue("kyc_level", {
-        value: exchangeData.e_data.kyc_level,
-        label: exchangeData.e_data.kyc_level,
-      });
-      setValue("liquidity_volume", {
-        value: exchangeData.e_data.liquidity_volume,
-        label: exchangeData.e_data.liquidity_volume,
-      });
+      setValue("support_resptime", exchangeData.e_data.support_resptime);
+      setValue("kyc_level", exchangeData.e_data.kyc_level);
+      setValue("liquidity_volume", exchangeData.e_data.liquidity_volume);
       setValue("tf_advancedtt", exchangeData.e_data.tf_advancedtt);
       setValue("tf_stoploss", exchangeData.e_data.tf_stoploss);
       setValue("tf_limitorders", exchangeData.e_data.tf_limitorders);
@@ -172,9 +163,9 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({
           support_call,
           support_livechat,
           support_whatsapp,
-          support_resptime: support_resptime.value,
-          kyc_level: kyc_level.value,
-          liquidity_volume: liquidity_volume.value,
+          support_resptime,
+          kyc_level,
+          liquidity_volume,
           tf_advancedtt,
           tf_stoploss,
           tf_limitorders,
@@ -225,9 +216,9 @@ export const AdvancedSetting: FC<IAdvancedSettingProps> = ({
           support_call,
           support_livechat,
           support_whatsapp,
-          support_resptime: support_resptime.value,
-          kyc_level: kyc_level.value,
-          liquidity_volume: liquidity_volume.value,
+          support_resptime,
+          kyc_level,
+          liquidity_volume,
           tf_advancedtt,
           tf_stoploss,
           tf_limitorders,

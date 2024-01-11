@@ -22,7 +22,6 @@ export const TableBody: FC<ITableBodyProps> = ({ isLoading, currentItems }) => {
       setFavorites((prev) => [...prev, index]);
     }
   };
-  console.log("currentItems", currentItems);
 
   return (
     <tbody>

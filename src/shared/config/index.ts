@@ -47,11 +47,11 @@ export const kycList = [
     label: "NO",
   },
   {
-    value: "Low (ID / Passport)",
+    value: "Low",
     label: "Low (ID / Passport)",
   },
   {
-    value: "High (Submit ID/Passport + proof of address)",
+    value: "High",
     label: "High (Submit ID/Passport + proof of address)",
   },
 ];

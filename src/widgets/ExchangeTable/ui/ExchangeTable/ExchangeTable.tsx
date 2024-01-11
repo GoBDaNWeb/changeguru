@@ -53,17 +53,23 @@ export const ExchangeTable = observer(() => {
   });
 
   const filteredExchanges = useMemo(() => {
-    console.log(exchanges);
-
-    return exchanges?.filter((exchange) => {
-      return Object.keys(filtersStore.filters).some((filterKey) => {
+    const advancedFilters = exchanges?.filter((exchange) => {
+      const objFilters = Object.keys(filtersStore.filters).some((filterKey) => {
         return (
           filtersStore.filters[filterKey] &&
           //@ts-ignore
           exchange.features.includes(filterKey)
         );
       });
+      return objFilters;
     });
+    console.log("advancedFilters", advancedFilters);
+    const baseArray = advancedFilters.length > 0 ? advancedFilters : exchanges;
+    const settingFilters = baseArray?.filter((exchange) => {
+      return exchange.kyc === filtersStore.filters.kyc_level && true;
+    });
+
+    return [...settingFilters];
   }, [exchanges, filtersStore.filters]);
 
   const finalExchange =
